@@ -5,8 +5,8 @@ type PlacesListProps = {
 }
 
 function PlacesList({ count }: PlacesListProps): JSX.Element {
-  const cards = Array.from({length: count}, () =>
-    <PlaceCard key={crypto.randomUUID()} isFavoritesPage={false}></PlaceCard>
+  const cards = Array.from({length: count}, (_, index) =>
+    <PlaceCard key={index} isFavoritesPage={false}></PlaceCard>
   );
   return (
     <div className="cities__places-list places__list tabs__content">
