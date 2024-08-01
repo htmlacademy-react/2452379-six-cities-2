@@ -4,7 +4,7 @@ import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import Layout from '../layout/layout';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import UnknownPage from '../../pages/unknown-page/unknown-page';
 import PrivateRoute from '../private-route/private-route';
 
@@ -24,7 +24,7 @@ function App({ cardsCount }: AppScreenProps): JSX.Element {
           <Route
             path={AppRoute.Favorites}
             element={
-              <PrivateRoute isAuthorized={false}>
+              <PrivateRoute authorizationStatus={AuthorizationStatus.Unknown}>
                 <FavoritesPage />
               </PrivateRoute>
             }
