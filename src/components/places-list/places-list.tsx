@@ -1,12 +1,14 @@
+import { Offer } from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
 
 type PlacesListProps = {
-  count: number;
+  offers: Offer[];
+  isFavoritePage: boolean;
 }
 
-function PlacesList({ count }: PlacesListProps): JSX.Element {
-  const cards = Array.from({length: count}, (_, index) =>
-    <PlaceCard key={index} isFavoritesPage={false}></PlaceCard>
+function PlacesList({ offers, isFavoritePage }: PlacesListProps): JSX.Element {
+  const cards = offers.map((offer) =>
+    <PlaceCard key={offer.id} offer={offer} isFavoritePage={isFavoritePage}></PlaceCard>
   );
   return (
     <div className="cities__places-list places__list tabs__content">

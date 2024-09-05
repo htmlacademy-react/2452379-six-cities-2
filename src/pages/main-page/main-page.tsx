@@ -1,12 +1,13 @@
 import Layout from '../../components/layout/layout';
 import PlacesList from '../../components/places-list/places-list';
+import { Offer } from '../../types/offer';
 
 type MainPageProps = {
-  cardsCount: number;
+  offers: Offer[];
 }
 
 
-export default function MainPage({ cardsCount }: MainPageProps): JSX.Element {
+export default function MainPage({ offers }: MainPageProps): JSX.Element {
   return (
     <Layout>
       <main className="page__main page__main--index">
@@ -67,7 +68,7 @@ export default function MainPage({ cardsCount }: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <PlacesList count={cardsCount}></PlacesList>
+              <PlacesList offers={offers} isFavoritePage={false}></PlacesList>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

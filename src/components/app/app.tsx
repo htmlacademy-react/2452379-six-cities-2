@@ -6,18 +6,19 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import UnknownPage from '../../pages/unknown-page/unknown-page';
 import PrivateRoute from '../private-route/private-route';
+import { Offer } from '../../types/offer';
 
 type AppScreenProps = {
-  cardsCount: number;
-}
+  offers: Offer[];
+};
 
-const createRouter = ({ cardsCount }: AppScreenProps) => createBrowserRouter([
+const createRouter = ({ offers }: AppScreenProps) => createBrowserRouter([
   {
     path: AppRoute.Main,
     children: [
       {
         index: true,
-        element: <MainPage cardsCount={cardsCount} />
+        element: <MainPage offers={offers} />
       },
       {
         path: AppRoute.Favorites,
@@ -41,8 +42,9 @@ const createRouter = ({ cardsCount }: AppScreenProps) => createBrowserRouter([
     ]
   }
 ]);
-function App({ cardsCount }: AppScreenProps): JSX.Element {
-  return <RouterProvider router={createRouter({ cardsCount })} />;
+
+function App({ offers }: AppScreenProps): JSX.Element {
+  return <RouterProvider router={createRouter({ offers })} />;
 }
 
 export default App;
