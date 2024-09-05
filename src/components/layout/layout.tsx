@@ -1,6 +1,8 @@
-import { Outlet } from 'react-router-dom';
+type LayoutProps = {
+  children: JSX.Element | JSX.Element[];
+}
 
-function Layout(): JSX.Element {
+function Layout({children}: LayoutProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -31,7 +33,7 @@ function Layout(): JSX.Element {
           </div>
         </div>
       </header>
-      <Outlet/>
+      {children}
     </div>
   );
 }

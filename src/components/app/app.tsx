@@ -2,7 +2,6 @@ import MainPage from '../../pages/main-page/main-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
-import Layout from '../layout/layout';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import UnknownPage from '../../pages/unknown-page/unknown-page';
@@ -15,7 +14,6 @@ type AppScreenProps = {
 const createRouter = ({ cardsCount }: AppScreenProps) => createBrowserRouter([
   {
     path: AppRoute.Main,
-    element: <Layout />,
     children: [
       {
         index: true,
