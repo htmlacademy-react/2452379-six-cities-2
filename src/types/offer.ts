@@ -9,7 +9,7 @@ type City = {
   location: MapData;
 }
 
-export type OfferType = 'room' | 'apartment' | 'hotel';
+export type OfferType = 'room' | 'apartment' | 'hotel' | 'house';
 
 export type Offer = {
   id: string;

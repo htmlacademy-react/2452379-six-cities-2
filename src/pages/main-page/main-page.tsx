@@ -9,7 +9,7 @@ type MainPageProps = {
 
 export default function MainPage({ offers }: MainPageProps): JSX.Element {
   return (
-    <Layout>
+    <Layout className="page--gray page--main">
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -53,6 +53,7 @@ export default function MainPage({ offers }: MainPageProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">312 places to stay in Amsterdam</b>
+
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -68,7 +69,8 @@ export default function MainPage({ offers }: MainPageProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
-              <PlacesList offers={offers} isFavoritePage={false}></PlacesList>
+
+              <PlacesList offers={offers} displayType={'main'}></PlacesList>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>

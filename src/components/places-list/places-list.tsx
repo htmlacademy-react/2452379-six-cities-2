@@ -1,17 +1,27 @@
+import clsx from 'clsx';
 import { Offer } from '../../types/offer';
+import { PlaceCardDisplayType } from '../../types/place-card';
 import PlaceCard from '../place-card/place-card';
+import { useState } from 'react';
 
 type PlacesListProps = {
   offers: Offer[];
-  isFavoritePage: boolean;
+  displayType: PlaceCardDisplayType;
 }
 
-function PlacesList({ offers, isFavoritePage }: PlacesListProps): JSX.Element {
+function PlacesList({ offers, displayType }: PlacesListProps): JSX.Element {
+  const [activeCard, setActiveCard] = useState<string>();
+
+  const cardMouseOverHandler = (id: string) => {
+    setActiveCard(id);
+  };
+
   const cards = offers.map((offer) =>
-    <PlaceCard key={offer.id} offer={offer} isFavoritePage={isFavoritePage}></PlaceCard>
+    <PlaceCard onCardMouseOver={displayType === 'main' ? cardMouseOverHandler : undefined}key={offer.id} offer={offer} displayType={displayType}></PlaceCard>
   );
+
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className={clsx(displayType === 'main' && 'cities__places-list places__list tabs__content', displayType === 'favorite' && 'favorites__places')}>
       {cards}
     </div>
   );

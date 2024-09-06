@@ -1,35 +1,56 @@
 import clsx from 'clsx';
 import { Offer, OfferType } from '../../types/offer';
+import { PlaceCardDisplayType } from '../../types/place-card';
+import { SyntheticEvent } from 'react';
 
 type PlaceCardProps = {
   offer: Offer;
-  isFavoritePage: boolean;
+  displayType: PlaceCardDisplayType;
+  onCardMouseOver?: (id: string) => void;
 }
 
 const offerTypes: Record<OfferType, string> = {
   'apartment': 'Apartment',
   'hotel': 'Hotel',
-  'room': 'Room'
+  'room': 'Room',
+  'house': 'House'
 };
 
-const calcRating = (value: number) => `${value * 20}%`;
+const previewSizes: Record<PlaceCardDisplayType, { width: number; height: number }> = {
+  'main': {
+    width: 260,
+    height: 200
+  },
+  'favorite': {
+    width: 150,
+    height: 110
+  }
+};
 
-function PlaceCard({ offer, isFavoritePage }: PlaceCardProps): JSX.Element {
+const MAX_RATING = 5;
+const calcRating = (value: number) => `${value * 100 / MAX_RATING}%`;
+
+function PlaceCard({ offer, displayType, onCardMouseOver }: PlaceCardProps): JSX.Element {
+  const mouseOverHandler = onCardMouseOver && ((evt: SyntheticEvent) => {
+    evt.preventDefault();
+    onCardMouseOver(offer.id);
+  });
+
   return (
-    <article className="cities__card place-card">
+    <article onMouseOver={mouseOverHandler} className={clsx('place-card', displayType === 'main' && 'cities__card', displayType === 'favorite' && 'favorites__card')}>
       {
         offer.isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       }
-      <div className={clsx('place-card__image-wrapper', isFavoritePage && 'favorites__image-wrapper', !isFavoritePage && 'cities__image-wrapper')}>
+      <div className={clsx('place-card__image-wrapper', displayType === 'main' && 'cities__image-wrapper', displayType === 'favorite' && 'favorites__image-wrapper')}>
         <a href="#">
-          <img className="place-card__image" src={offer.previewImage} width={isFavoritePage ? '150' : '260'} height={isFavoritePage ? '110' : '200'} alt="Place image" />
+          <img className="place-card__image" src={offer.previewImage} width={previewSizes[displayType].width} height={previewSizes[displayType].height} alt="Place image" />
         </a>
       </div>
 
-      <div className={isFavoritePage ? 'favorites__card-info place-card__info' : 'place-card__info'}>
+      <div className={clsx('place-card__info', displayType === 'favorite' && 'favorites__card-info')}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>

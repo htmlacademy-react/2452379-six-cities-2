@@ -24,7 +24,7 @@ const createRouter = ({ offers }: AppScreenProps) => createBrowserRouter([
         path: AppRoute.Favorites,
         element:
           <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-            <FavoritesPage />
+            <FavoritesPage offers={offers}/>
           </PrivateRoute>,
       },
       {
