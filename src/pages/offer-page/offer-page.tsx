@@ -1,4 +1,5 @@
 import Layout from '../../components/layout/layout';
+import Map from '../../components/map/map';
 
 function OfferPage(): JSX.Element {
   return (
@@ -197,7 +198,7 @@ function OfferPage(): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <Map displayType='offer'/>
         </section>
         <div className="container">
           <section className="near-places places">

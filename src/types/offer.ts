@@ -1,8 +1,4 @@
-type MapData = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-}
+import { MapData } from './map';
 
 type City = {
   name: string;

@@ -2,6 +2,8 @@ import clsx from 'clsx';
 import { Offer, OfferType } from '../../types/offer';
 import { PlaceCardDisplayType } from '../../types/place-card';
 import { SyntheticEvent } from 'react';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -45,9 +47,9 @@ function PlaceCard({ offer, displayType, onCardMouseOver }: PlaceCardProps): JSX
         </div>
       }
       <div className={clsx('place-card__image-wrapper', displayType === 'main' && 'cities__image-wrapper', displayType === 'favorite' && 'favorites__image-wrapper')}>
-        <a href="#">
+        <Link to={AppRoute.Offer.replace(':id', offer.id)}>
           <img className="place-card__image" src={offer.previewImage} width={previewSizes[displayType].width} height={previewSizes[displayType].height} alt="Place image" />
-        </a>
+        </Link>
       </div>
 
       <div className={clsx('place-card__info', displayType === 'favorite' && 'favorites__card-info')}>
@@ -70,7 +72,7 @@ function PlaceCard({ offer, displayType, onCardMouseOver }: PlaceCardProps): JSX
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{offer.title}</a>
+          <Link to={AppRoute.Offer.replace(':id', offer.id)}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offerTypes[offer.type]}</p>
       </div>
