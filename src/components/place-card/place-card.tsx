@@ -1,8 +1,7 @@
 import clsx from 'clsx';
 import { Offer, OfferType } from '../../types/offer';
 import { PlaceCardDisplayType } from '../../types/place-card';
-import { SyntheticEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
 type PlaceCardProps = {
@@ -33,10 +32,9 @@ const MAX_RATING = 5;
 const calcRating = (value: number) => `${value * 100 / MAX_RATING}%`;
 
 function PlaceCard({ offer, displayType, onCardMouseOver }: PlaceCardProps): JSX.Element {
-  const mouseOverHandler = onCardMouseOver && ((evt: SyntheticEvent) => {
-    evt.preventDefault();
-    onCardMouseOver(offer.id);
-  });
+  const mouseOverHandler = () => {
+    onCardMouseOver?.(offer.id);
+  };
 
   return (
     <article onMouseOver={mouseOverHandler} className={clsx('place-card', displayType === 'main' && 'cities__card', displayType === 'favorite' && 'favorites__card')}>
@@ -47,7 +45,7 @@ function PlaceCard({ offer, displayType, onCardMouseOver }: PlaceCardProps): JSX
         </div>
       }
       <div className={clsx('place-card__image-wrapper', displayType === 'main' && 'cities__image-wrapper', displayType === 'favorite' && 'favorites__image-wrapper')}>
-        <Link to={AppRoute.Offer.replace(':id', offer.id)}>
+        <Link to={generatePath(AppRoute.Offer, { id: offer.id })}>
           <img className="place-card__image" src={offer.previewImage} width={previewSizes[displayType].width} height={previewSizes[displayType].height} alt="Place image" />
         </Link>
       </div>
@@ -72,7 +70,7 @@ function PlaceCard({ offer, displayType, onCardMouseOver }: PlaceCardProps): JSX
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Offer.replace(':id', offer.id)}>{offer.title}</Link>
+          <Link to={generatePath(AppRoute.Offer, { id: offer.id })}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offerTypes[offer.type]}</p>
       </div>

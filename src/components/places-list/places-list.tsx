@@ -10,18 +10,18 @@ type PlacesListProps = {
 }
 
 function PlacesList({ offers, displayType }: PlacesListProps): JSX.Element {
-  const [activeCard, setActiveCard] = useState<string>();
+  const [, setActiveCard] = useState<string>();
 
   const cardMouseOverHandler = (id: string) => {
     setActiveCard(id);
   };
 
   const cards = offers.map((offer) =>
-    <PlaceCard onCardMouseOver={displayType === 'main' ? cardMouseOverHandler : undefined}key={offer.id} offer={offer} displayType={displayType}></PlaceCard>
+    <PlaceCard onCardMouseOver={cardMouseOverHandler}key={offer.id} offer={offer} displayType={displayType}></PlaceCard>
   );
 
   return (
-    <div className={clsx(displayType === 'main' && 'cities__places-list places__list tabs__content', displayType === 'favorite' && 'favorites__places')}>
+    <div className={clsx(displayType === 'main' && 'cities__places-list places__list', displayType === 'favorite' && 'favorites__places')}>
       {cards}
     </div>
   );
