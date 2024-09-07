@@ -8,6 +8,7 @@ type PlaceCardProps = {
   offer: Offer;
   displayType: PlaceCardDisplayType;
   onCardMouseOver?: (id: string) => void;
+  onCardMouseLeave?: () => void;
 }
 
 const offerTypes: Record<OfferType, string> = {
@@ -31,13 +32,20 @@ const previewSizes: Record<PlaceCardDisplayType, { width: number; height: number
 const MAX_RATING = 5;
 const calcRating = (value: number) => `${value * 100 / MAX_RATING}%`;
 
-function PlaceCard({ offer, displayType, onCardMouseOver }: PlaceCardProps): JSX.Element {
+function PlaceCard({ offer, displayType, onCardMouseOver, onCardMouseLeave }: PlaceCardProps): JSX.Element {
   const mouseOverHandler = () => {
     onCardMouseOver?.(offer.id);
   };
+  const mouseLeaveHandler = () => {
+    onCardMouseLeave?.();
+  };
 
   return (
-    <article onMouseOver={mouseOverHandler} className={clsx('place-card', displayType === 'main' && 'cities__card', displayType === 'favorite' && 'favorites__card')}>
+    <article
+      onMouseOver={mouseOverHandler}
+      onMouseLeave={mouseLeaveHandler}
+      className={clsx('place-card', displayType === 'main' && 'cities__card', displayType === 'favorite' && 'favorites__card')}
+    >
       {
         offer.isPremium &&
         <div className="place-card__mark">
