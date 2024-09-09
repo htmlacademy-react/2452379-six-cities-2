@@ -1,8 +1,10 @@
 import clsx from 'clsx';
 import { MapDisplayType } from '../../types/map';
+import { ActiveCardId } from '../../types/place-card';
 
 type MapProps = {
   displayType: MapDisplayType;
+  activeCardId: ActiveCardId;
 }
 
 const displayTypes: Record<MapDisplayType, string> = {
@@ -10,7 +12,8 @@ const displayTypes: Record<MapDisplayType, string> = {
   'offer': 'offer__map'
 };
 
-export default function Map({displayType}: MapProps): JSX.Element {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function Map({activeCardId, displayType}: MapProps): JSX.Element {
   return (
     <section className={clsx('map', displayTypes[displayType])}></section>
   );

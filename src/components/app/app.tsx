@@ -18,7 +18,7 @@ const createRouter = ({ offers }: AppScreenProps) => createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MainPage offers={offers} />
+        element: <MainPage city={'Amsterdam'}offers={offers} />
       },
       {
         path: AppRoute.Favorites,

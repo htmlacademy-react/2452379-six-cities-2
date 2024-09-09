@@ -1,21 +1,17 @@
 import clsx from 'clsx';
-import { Offer, OfferId } from '../../types/offer';
-import { PlaceCardDisplayType } from '../../types/place-card';
+import { Offer } from '../../types/offer';
+import { ActiveCardId, PlaceCardDisplayType } from '../../types/place-card';
 import PlaceCard from '../place-card/place-card';
-import { useState } from 'react';
 
 type PlacesListProps = {
   offers: Offer[];
   displayType: PlaceCardDisplayType;
-  onActiveCardChange?: (id: OfferId | null) => void;
+  onActiveCardChange?: (id: ActiveCardId) => void;
 }
 
 function PlacesList({ offers, displayType, onActiveCardChange }: PlacesListProps): JSX.Element {
-  const [, setActiveCard] = useState<OfferId | null>(null);
-
-  const handleCardMouseEvent = onActiveCardChange && ((id: OfferId | null = null) => {
+  const handleCardMouseEvent = onActiveCardChange && ((id: ActiveCardId = null) => {
     onActiveCardChange(id);
-    setActiveCard(id);
   });
 
   const cards = offers.map((offer) =>
