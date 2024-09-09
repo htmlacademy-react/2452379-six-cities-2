@@ -33,12 +33,12 @@ const MAX_RATING = 5;
 const calcRating = (value: number) => `${value * 100 / MAX_RATING}%`;
 
 function PlaceCard({ offer, displayType, onCardMouseEnter, onCardMouseLeave }: PlaceCardProps): JSX.Element {
-  const handleMouseEnter = () => {
-    onCardMouseEnter?.(offer.id);
-  };
-  const handleMouseLeave = () => {
-    onCardMouseLeave?.();
-  };
+  const handleMouseEnter = onCardMouseEnter && (() => {
+    onCardMouseEnter(offer.id);
+  });
+  const handleMouseLeave = onCardMouseLeave && (() => {
+    onCardMouseLeave();
+  });
 
   return (
     <article
