@@ -6,20 +6,21 @@ type FavoritesListProps = {
 }
 
 export default function FavoritesList({ offers }: FavoritesListProps) {
-  const cityOffersMap = new Map<string, Offer[]>();
+  const cityOffers: Record<string, Offer[]> = {};
 
   offers.forEach((offer) => {
-    const city = cityOffersMap.get(offer.city.name);
-    if(!city){
-      cityOffersMap.set(offer.city.name, [ offer ]);
+    if(!cityOffers[offer.city.name]){
+      cityOffers[offer.city.name] = [ offer ];
     } else {
-      city.push(offer);
+      cityOffers[offer.city.name].push(offer);
     }
   });
 
-  const favoritesItems = Array.from(cityOffersMap, ([city, cityOffers]) =>
-    <FavoritesItem key={city} city={city} offers={cityOffers} />
-  );
+  const favoritesItems:JSX.Element[] = [];
+
+  for(const city in cityOffers) {
+    favoritesItems.push(<FavoritesItem key={city} city={city} offers={cityOffers[city]} />);
+  }
 
   return (
     <ul className="favorites__list">
