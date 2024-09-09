@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 type FormData = {
   rating: number;
@@ -10,61 +10,56 @@ const initFormData: FormData = {
   review: ''
 };
 
+const ratingTitles: Record<string, string> = {
+  '1': 'terribly',
+  '2': 'badly',
+  '3': 'not bad',
+  '4': 'good',
+  '5': 'perfect'
+};
+
 const MIN_COMMENT_LENGTH = 50;
+const MAX_COMMENT_LENGTH = 300;
 
 export default function CommentForm() {
   const [formData, setFormData] = useState(initFormData);
 
-  const formInputHandler = (evt: FormEvent) => {
+  const handleInputChange = (evt: ChangeEvent) => {
     const { name, value } = evt.target as HTMLInputElement;
     setFormData({ ...formData, [name]: value });
   };
 
+  const isValid = formData.rating && formData.review.length >= MIN_COMMENT_LENGTH && formData.review.length <= MAX_COMMENT_LENGTH;
+
   return (
-    <form onChange={formInputHandler} className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" />
-        <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio" />
-        <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio" />
-        <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio" />
-        <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio" />
-        <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
+        {
+          (() => {
+            const result: JSX.Element[] = [];
+            for (const key in ratingTitles) {
+              result.push(
+                <>
+                  <input onChange={handleInputChange} className="form__rating-input visually-hidden" name="rating" value={key} id={`${key}-stars`} type="radio" />
+                  <label htmlFor={`${key}-stars`} className="reviews__rating-label form__rating-label" title={ratingTitles[key]}>
+                    <svg className="form__star-image" width="37" height="33">
+                      <use xlinkHref="#icon-star"></use>
+                    </svg>
+                  </label>
+                </>
+              );
+            }
+            return result.reverse();
+          })()
+        }
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" minLength={MIN_COMMENT_LENGTH}></textarea>
+      <textarea onChange={handleInputChange}className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" minLength={MIN_COMMENT_LENGTH}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={!isValid}>Submit</button>
       </div>
     </form>
   );

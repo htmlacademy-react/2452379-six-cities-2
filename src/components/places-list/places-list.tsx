@@ -12,15 +12,15 @@ type PlacesListProps = {
 function PlacesList({ offers, displayType }: PlacesListProps): JSX.Element {
   const [, setActiveCard] = useState<string | null>(null);
 
-  const cardMouseOverHandler = (id: string) => {
+  const handleCardMouseEnter = (id: string) => {
     setActiveCard(id);
   };
-  const cardMouseLeaveHandler = () => {
+  const handleCardMouseLeave = () => {
     setActiveCard(null);
   };
 
   const cards = offers.map((offer) =>
-    <PlaceCard onCardMouseOver={cardMouseOverHandler} onCardMouseLeave={cardMouseLeaveHandler} key={offer.id} offer={offer} displayType={displayType}></PlaceCard>
+    <PlaceCard onCardMouseEnter={handleCardMouseEnter} onCardMouseLeave={handleCardMouseLeave} key={offer.id} offer={offer} displayType={displayType}></PlaceCard>
   );
 
   return (
