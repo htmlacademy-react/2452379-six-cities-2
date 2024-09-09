@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Offer, OfferType } from '../../types/offer';
+import { Offer, OfferId, OfferType } from '../../types/offer';
 import { PlaceCardDisplayType } from '../../types/place-card';
 import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../../const';
@@ -7,7 +7,7 @@ import { AppRoute } from '../../const';
 type PlaceCardProps = {
   offer: Offer;
   displayType: PlaceCardDisplayType;
-  onCardMouseEnter?: (id: string) => void;
+  onCardMouseEnter?: (id: OfferId) => void;
   onCardMouseLeave?: () => void;
 }
 

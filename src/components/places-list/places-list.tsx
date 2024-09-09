@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Offer } from '../../types/offer';
+import { Offer, OfferId } from '../../types/offer';
 import { PlaceCardDisplayType } from '../../types/place-card';
 import PlaceCard from '../place-card/place-card';
 import { useState } from 'react';
@@ -7,20 +7,19 @@ import { useState } from 'react';
 type PlacesListProps = {
   offers: Offer[];
   displayType: PlaceCardDisplayType;
+  onActiveCardChange?: (id: OfferId | null) => void;
 }
 
-function PlacesList({ offers, displayType }: PlacesListProps): JSX.Element {
-  const [, setActiveCard] = useState<string | null>(null);
+function PlacesList({ offers, displayType, onActiveCardChange }: PlacesListProps): JSX.Element {
+  const [, setActiveCard] = useState<OfferId | null>(null);
 
-  const handleCardMouseEnter = (id: string) => {
+  const handleCardMouseEvent = onActiveCardChange && ((id: OfferId | null = null) => {
+    onActiveCardChange(id);
     setActiveCard(id);
-  };
-  const handleCardMouseLeave = () => {
-    setActiveCard(null);
-  };
+  });
 
   const cards = offers.map((offer) =>
-    <PlaceCard onCardMouseEnter={handleCardMouseEnter} onCardMouseLeave={handleCardMouseLeave} key={offer.id} offer={offer} displayType={displayType}></PlaceCard>
+    <PlaceCard onCardMouseEnter={handleCardMouseEvent} onCardMouseLeave={handleCardMouseEvent} key={offer.id} offer={offer} displayType={displayType}></PlaceCard>
   );
 
   return (

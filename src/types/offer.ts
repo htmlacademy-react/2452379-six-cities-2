@@ -7,8 +7,10 @@ type City = {
 
 export type OfferType = 'room' | 'apartment' | 'hotel' | 'house';
 
+export type OfferId = string;
+
 export type Offer = {
-  id: string;
+  id: OfferId;
   title: string;
   type: OfferType;
   price: number;
