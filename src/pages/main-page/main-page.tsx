@@ -11,9 +11,12 @@ type MainPageProps = {
 const availableLocations = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 export default function MainPage({ offers, city }: MainPageProps): JSX.Element {
+  const cityOffers = offers.filter((offer) => offer.city.name === city);
+  const isFound = cityOffers.length > 0;
+
   return (
     <Layout className="page--gray page--main">
-      <main className="page__main page__main--index">
+      <main className={clsx('page__main page__main--index', !isFound && 'page__main--index-empty')}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
@@ -33,7 +36,7 @@ export default function MainPage({ offers, city }: MainPageProps): JSX.Element {
           </section>
         </div>
 
-        <Cities city={city} offers={offers} />
+        <Cities city={city} offers={cityOffers} />
 
       </main>
     </Layout>
