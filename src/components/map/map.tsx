@@ -2,13 +2,12 @@ import clsx from 'clsx';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapData, MapDisplayType } from '../../types/map';
-import { ActiveCardId } from '../../types/place-card';
 import { useEffect, useRef } from 'react';
 import { Offer } from '../../types/offer';
 
 type MapProps = {
   displayType: MapDisplayType;
-  activeCardId: ActiveCardId;
+  activeCardId: Offer['id'] | null;
   city: MapData;
   offers: Offer[];
 }
