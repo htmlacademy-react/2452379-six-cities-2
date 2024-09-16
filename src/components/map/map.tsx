@@ -1,50 +1,71 @@
 import clsx from 'clsx';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { MapData, MapDisplayType } from '../../types/map';
+import { MapData } from '../../types/map';
 import { useEffect, useRef } from 'react';
 import { Offer } from '../../types/offer';
+import useMap from '../../hooks/useMap';
 
 type MapProps = {
-  displayType: MapDisplayType;
-  activeCardId: Offer['id'] | null;
+  className: string;
+  activeOfferId: Offer['id'] | null;
   city: MapData;
   offers: Offer[];
 }
 
-const displayTypes: Record<MapDisplayType, string> = {
-  'main': 'cities__map',
-  'offer': 'offer__map'
+const markerTypes = {
+  default: {
+    icon: new leaflet.Icon({
+      iconUrl: '../../../public/img/pin.svg',
+      iconSize: [27, 39]
+    })
+  },
+  active: {
+    icon: new leaflet.Icon({
+      iconUrl: '../../../public/img/pin-active.svg',
+      iconSize: [27, 39]
+    })
+  },
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function Map({ activeCardId, displayType, city, offers }: MapProps): JSX.Element {
-  const mapElement = useRef<HTMLDivElement>(null);
-  const map = useRef<leaflet.Map>();
+export default function Map({ activeOfferId, city, className, offers }: MapProps): JSX.Element {
+  const mapElementRef = useRef<HTMLDivElement>(null);
+  const mapRef = useMap(mapElementRef, city);
 
   useEffect(() => {
-    if (!map.current) {
-      map.current =
+    const markerLayer = new leaflet.LayerGroup();
+    offers
+      .forEach(({ id, location }) => {
         leaflet
-          .map(mapElement.current as HTMLElement)
-          .setView({ lat: city.latitude, lng: city.longitude }, city.zoom);
-
-      leaflet
-        .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
-        .addTo(map.current);
-
-      offers.forEach(({location}) => {
-        leaflet
-          .marker({lat: location.latitude, lng: location.longitude})
-          .addTo(map.current as leaflet.Map);
+          .marker({ lat: location.latitude, lng: location.longitude }, id === activeOfferId ? markerTypes.active : markerTypes.default)
+          .addTo(markerLayer);
       });
+
+    mapRef.current?.addLayer(markerLayer);
+
+    if (activeOfferId) {
+      const activeOffer: Offer | undefined = offers.find(({ id }) => id === activeOfferId);
+      if (activeOffer) {
+        mapRef.current?.flyTo({
+          lat: activeOffer.location.latitude,
+          lng: activeOffer.location.longitude
+        }, activeOffer.location.zoom);
+      }
+    } else {
+      mapRef.current?.flyTo({
+        lat: offers[0].city.location.latitude,
+        lng: offers[0].city.location.longitude
+      }, offers[0].city.location.zoom);
     }
 
-  }, []);
+    return () => {
+      mapRef.current?.removeLayer(markerLayer);
+    };
+  }, [mapRef, offers, activeOfferId]);
 
   return (
-    <section className={clsx('map', displayTypes[displayType])}>
-      <div ref={mapElement} style={{ 'height': '100%' }}></div>
+    <section className={clsx('map', className)}>
+      <div ref={mapElementRef} style={{ 'height': '100%' }} ></div>
     </section>
   );
 }

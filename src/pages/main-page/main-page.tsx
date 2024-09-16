@@ -36,7 +36,7 @@ export default function MainPage({ offers, city }: MainPageProps): JSX.Element {
           </section>
         </div>
 
-        <Cities city={city} offers={cityOffers} />
+        <Cities offers={cityOffers} />
 
       </main>
     </Layout>
