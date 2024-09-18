@@ -1,4 +1,4 @@
-import { MapData } from './map';
+import { MapData } from './common';
 
 type City = {
   name: string;
@@ -20,4 +20,19 @@ export type Offer = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
+};
+
+export type OfferDetails = {
+  host: {
+    isPro: boolean;
+    name: string;
+    avatarUrl: string;
+  };
+  goods: string[];
+  bedrooms: number;
+  maxAdults: number;
+  images: string[];
+  description: string;
 }
+
+export type OfferFull = Omit<Offer, 'previewImage'> & OfferDetails;
