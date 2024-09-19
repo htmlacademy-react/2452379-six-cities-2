@@ -11,7 +11,7 @@ type PlaceCardProps = {
   offer: Offer;
   displayType: PlaceCardDisplayType;
   onCardMouseEnter?: (offer: Offer) => void;
-  onCardMouseLeave?: () => void;
+  onCardMouseLeave?: (offer: null) => void;
 }
 
 const displayTypesClassNames: Record<PlaceCardDisplayType, { [k: string]: string }> = {
@@ -50,7 +50,7 @@ function PlaceCard({ offer, displayType, onCardMouseEnter, onCardMouseLeave }: P
     onCardMouseEnter(offer);
   });
   const handleMouseLeave = onCardMouseLeave && (() => {
-    onCardMouseLeave();
+    onCardMouseLeave(null);
   });
 
   return (

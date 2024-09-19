@@ -5,7 +5,7 @@ import PlaceCard from '../place-card/place-card';
 type PlacesListProps = {
   offers: Offer[];
   displayType: PlaceCardDisplayType;
-  onActiveCardChange?: (offer?: Offer | null) => void;
+  onActiveCardChange?: (offer: Offer | null) => void;
 }
 
 const displayTypesClassNames: Record<PlaceCardDisplayType, string> = {
