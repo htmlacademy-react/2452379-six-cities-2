@@ -10,7 +10,7 @@ type CitiesProps = {
 }
 
 export default function Cities({ offers }: CitiesProps): JSX.Element {
-  const [activeOfferId, setActiveOfferId] = useState<Offer['id'] | null>(null);
+  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const isEmpty = offers.length === 0;
 
   return (
@@ -25,10 +25,10 @@ export default function Cities({ offers }: CitiesProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in {offers[0].city.name}</b>
               <PlacesSortForm />
-              <PlacesList onActiveCardChange={setActiveOfferId} offers={offers} displayType={'main'}></PlacesList>
+              <PlacesList onActiveCardChange={setActiveOffer} offers={offers} displayType={'main'}></PlacesList>
             </section>
             <div className="cities__right-section">
-              <Map activeOfferId={activeOfferId} city={offers[0].city.location} offers={offers} className="cities__map"/>
+              <Map className="cities__map" activeOffer={activeOffer} offers={offers} anchor={offers[0].city.location} mapOptions={{ zoomControl: false }} flyToActive />
             </div>
           </div>
       }

@@ -1,16 +1,16 @@
 import { useEffect, useRef } from 'react';
-import { MapData } from '../types/map';
+import { MapData } from '../types/common';
 import leaflet from 'leaflet';
 
-export default function useMap(mapElementRef:React.RefObject<HTMLDivElement>, city: MapData) {
+export default function useMap(mapElementRef:React.RefObject<HTMLDivElement>, location: MapData, options?: leaflet.MapOptions) {
   const mapRef = useRef<leaflet.Map>();
 
   useEffect(() => {
     if (!mapRef.current) {
       mapRef.current =
         leaflet
-          .map(mapElementRef.current as HTMLElement)
-          .setView({ lat: city.latitude, lng: city.longitude }, city.zoom);
+          .map(mapElementRef.current as HTMLElement, options)
+          .setView({ lat: location.latitude, lng: location.longitude }, location.zoom);
 
       leaflet
         .tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -18,7 +18,7 @@ export default function useMap(mapElementRef:React.RefObject<HTMLDivElement>, ci
         })
         .addTo(mapRef.current);
     }
-  }, [mapElementRef, city]);
+  }, [mapElementRef, location]);
 
   return mapRef;
 }

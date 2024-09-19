@@ -1,3 +1,5 @@
+import { OfferType } from './types/offer';
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -10,3 +12,10 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN'
 }
+
+export const offerTypes: Record<OfferType, string> = {
+  'apartment': 'Apartment',
+  'hotel': 'Hotel',
+  'room': 'Room',
+  'house': 'House'
+};
