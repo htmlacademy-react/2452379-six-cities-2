@@ -14,12 +14,10 @@ function getOfferInfo(offerId: OfferId): Promise<OfferFull> {
     'type': 'room',
     'price': 207,
     'images': [
+      'https://13.design.htmlacademy.pro/static/hotel/17.jpg',
       'https://13.design.htmlacademy.pro/static/hotel/20.jpg',
       'https://13.design.htmlacademy.pro/static/hotel/19.jpg',
-      'https://13.design.htmlacademy.pro/static/hotel/8.jpg',
-      'https://13.design.htmlacademy.pro/static/hotel/12.jpg',
-      'https://13.design.htmlacademy.pro/static/hotel/9.jpg',
-      'https://13.design.htmlacademy.pro/static/hotel/17.jpg'
+      'https://13.design.htmlacademy.pro/static/hotel/8.jpg'
     ],
     'city': {
       'name': 'Paris',
@@ -151,7 +149,7 @@ function getReviews(offerId: OfferId): Promise<Review[]> {
       {
         'id': 'd3baefc4-01ec-46b8-ba06-d09fdc7c942f',
         'comment': 'Home is amazing. It\'s like staying in a museum. The rooms, furnishings and artworks are incredible. The views of My Vesuvius',
-        'date': '2024-08-24T21:00:00.403Z',
+        'date': '2016-05-24T21:00:00.403Z',
         'rating': 2,
         'user': {
           'name': 'Emely',
@@ -177,7 +175,7 @@ function getReviews(offerId: OfferId): Promise<Review[]> {
 function OfferPage(): JSX.Element {
   const [offer, setOffer] = useState<OfferFull | null>(null);
   const [nearOffers, setNearOffers] = useState<OfferT[]>([]);
-  const [reviews, setReviews] = useState<Review[] | null>(null);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const offerId = useParams().id;
 
   useEffect(() => {

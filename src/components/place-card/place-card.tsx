@@ -15,16 +15,16 @@ type PlaceCardProps = {
 }
 
 const displayTypesClassNames: Record<PlaceCardDisplayType, { [k: string]: string }> = {
-  'main': {
+  main: {
     'place-card': 'cities__card',
     'place-card__image-wrapper': 'cities__image-wrapper',
   },
-  'favorite': {
+  favorite: {
     'place-card': 'favorites__card',
     'place-card__image-wrapper': 'favorites__image-wrapper',
     'place-card__info': 'favorites__card-info',
   },
-  'offer': {
+  offer: {
     'place-card': 'near-places__card',
     'place-card__image-wrapper': 'near-places__image-wrapper',
   }

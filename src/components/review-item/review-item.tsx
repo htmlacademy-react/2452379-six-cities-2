@@ -5,6 +5,26 @@ type ReviewItemProps = {
   review: Review;
 }
 
+const MONTHES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+
+const humanizeDate = (date: string) => {
+  const d = new Date(date);
+  return `${MONTHES[d.getMonth()]} ${d.getFullYear()}`;
+};
+
 export default function ReviewItem({ review }: ReviewItemProps): JSX.Element {
   return (
     <li key={review.id} className="reviews__item">
@@ -21,7 +41,7 @@ export default function ReviewItem({ review }: ReviewItemProps): JSX.Element {
         <p className="reviews__text">
           {review.comment}
         </p>
-        <time className="reviews__time" dateTime={review.date}>April 2019</time>
+        <time className="reviews__time" dateTime={review.date}>{humanizeDate(review.date)}</time>
       </div>
     </li>
   );

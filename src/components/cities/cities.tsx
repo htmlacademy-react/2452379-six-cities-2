@@ -25,10 +25,17 @@ export default function Cities({ offers }: CitiesProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in {offers[0].city.name}</b>
               <PlacesSortForm />
-              <PlacesList onActiveCardChange={setActiveOffer} offers={offers} displayType={'main'}></PlacesList>
+              <PlacesList onActiveCardChange={setActiveOffer} offers={offers} displayType={'main'} />
             </section>
             <div className="cities__right-section">
-              <Map className="cities__map" activeOffer={activeOffer} offers={offers} anchor={offers[0].city.location} mapOptions={{ zoomControl: false }} flyToActive />
+              <Map
+                className="cities__map"
+                activeOffer={activeOffer}
+                offers={offers}
+                anchor={offers[0].city.location}
+                mapOptions={{ zoomControl: false }}
+                flyToActive
+              />
             </div>
           </div>
       }
