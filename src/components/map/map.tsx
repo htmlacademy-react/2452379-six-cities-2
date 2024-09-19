@@ -33,9 +33,6 @@ const markerTypes = {
 };
 
 export default function Map({ activeOffer, className, offers, anchor, mapOptions, flyToActive = false }: MapProps): JSX.Element {
-  // const cityLocation = offers[0].city.location;
-  // const startLocation = !flyToActive && activeOffer ? activeOffer.location : cityLocation;
-
   const mapElementRef = useRef<HTMLDivElement>(null);
   const mapRef = useMap(mapElementRef, anchor, mapOptions);
 

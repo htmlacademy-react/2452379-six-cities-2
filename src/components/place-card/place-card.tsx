@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Offer, OfferType } from '../../types/offer';
+import { Offer } from '../../types/offer';
 import { PlaceCardDisplayType } from '../../types/place-card';
 import { Link, generatePath } from 'react-router-dom';
 import { AppRoute, offerTypes } from '../../const';
