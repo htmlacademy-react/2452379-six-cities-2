@@ -1,9 +1,5 @@
+import { City } from './city';
 import { MapData } from './common';
-
-type City = {
-  name: string;
-  location: MapData;
-}
 
 export type OfferType = 'room' | 'apartment' | 'hotel' | 'house';
 

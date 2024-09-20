@@ -6,25 +6,21 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import UnknownPage from '../../pages/unknown-page/unknown-page';
 import PrivateRoute from '../private-route/private-route';
-import { Offer } from '../../types/offer';
 
-type AppScreenProps = {
-  offers: Offer[];
-};
 
-const createRouter = ({ offers }: AppScreenProps) => createBrowserRouter([
+const createRouter = () => createBrowserRouter([
   {
     path: AppRoute.Main,
     children: [
       {
         index: true,
-        element: <MainPage city="Brussels" offers={offers} />
+        element: <MainPage />
       },
       {
         path: AppRoute.Favorites,
         element:
           <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-            <FavoritesPage offers={offers}/>
+            <FavoritesPage />
           </PrivateRoute>,
       },
       {
@@ -43,8 +39,8 @@ const createRouter = ({ offers }: AppScreenProps) => createBrowserRouter([
   }
 ]);
 
-function App({ offers }: AppScreenProps): JSX.Element {
-  return <RouterProvider router={createRouter({ offers })} />;
+function App(): JSX.Element {
+  return <RouterProvider router={createRouter()} />;
 }
 
 export default App;

@@ -5,24 +5,9 @@ type ReviewItemProps = {
   review: Review;
 }
 
-const MONTHES = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-];
-
 const humanizeDate = (date: string) => {
   const d = new Date(date);
-  return `${MONTHES[d.getMonth()]} ${d.getFullYear()}`;
+  return `${d.toLocaleString('en-GB', { month: 'long' })} ${d.getFullYear()}`;
 };
 
 export default function ReviewItem({ review }: ReviewItemProps): JSX.Element {

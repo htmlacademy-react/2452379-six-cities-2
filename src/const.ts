@@ -19,3 +19,5 @@ export const offerTypes: Record<OfferType, string> = {
   'room': 'Room',
   'house': 'House'
 };
+
+export const AVAILABLE_LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
