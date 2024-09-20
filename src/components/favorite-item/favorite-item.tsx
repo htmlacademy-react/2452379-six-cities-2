@@ -1,8 +1,9 @@
+import { CityName } from '../../types/city';
 import { Offer } from '../../types/offer';
 import PlacesList from '../places-list/places-list';
 
 type FavoriteItemProps = {
-  city: string;
+  city: CityName;
   offers: Offer[];
 }
 

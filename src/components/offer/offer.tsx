@@ -9,8 +9,10 @@ import StarsRating from '../stars-rating/stars-rating';
 type OfferProps = {
   offer: OfferFull;
   nearOffers: Offer[];
-  reviews: Review[] | null;
+  reviews: Review[];
 }
+
+const MAX_IMAGES_COUNT = 6;
 
 export default function Offer({ offer, reviews, nearOffers }: OfferProps): JSX.Element {
   return (
@@ -18,7 +20,7 @@ export default function Offer({ offer, reviews, nearOffers }: OfferProps): JSX.E
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
           {
-            offer.images.map((url) => (
+            offer.images.slice(0, MAX_IMAGES_COUNT).map((url) => (
               <div key={url} className="offer__image-wrapper">
                 <img className="offer__image" src={url} alt="Photo studio" />
               </div>
@@ -86,10 +88,16 @@ export default function Offer({ offer, reviews, nearOffers }: OfferProps): JSX.E
               {offer.description}
             </div>
           </div>
-          { reviews && <ReviewsList reviews={reviews}/>}
+          {reviews.length > 0 && <ReviewsList reviews={reviews} />}
         </div>
       </div>
-      {offer && <Map className="offer__map" activeOffer={offer} offers={[offer, ...nearOffers]} anchor={offer?.location} mapOptions={{ dragging: false, scrollWheelZoom: false, zoomControl: false }} />}
+      <Map
+        className="offer__map"
+        activeOffer={offer}
+        offers={[offer, ...nearOffers]}
+        anchor={offer?.location}
+        mapOptions={{ dragging: false, scrollWheelZoom: false, zoomControl: false }}
+      />
     </section>
   );
 }

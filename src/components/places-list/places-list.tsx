@@ -15,13 +15,15 @@ const displayTypesClassNames: Record<PlaceCardDisplayType, string> = {
 };
 
 function PlacesList({ offers, displayType, onActiveCardChange }: PlacesListProps): JSX.Element {
-  const handleCardMouseEvent = onActiveCardChange && ((offer: Offer | null = null) => {
-    onActiveCardChange(offer);
-  });
-
-  const cards = offers.map((offer) =>
-    <PlaceCard onCardMouseEnter={handleCardMouseEvent} onCardMouseLeave={handleCardMouseEvent} key={offer.id} offer={offer} displayType={displayType}></PlaceCard>
-  );
+  const cards = offers.map((offer) => (
+    <PlaceCard
+      onCardMouseEnter={onActiveCardChange}
+      onCardMouseLeave={onActiveCardChange}
+      key={offer.id}
+      offer={offer}
+      displayType={displayType}
+    />
+  ));
 
   return (
     <div className={displayTypesClassNames[displayType]}>

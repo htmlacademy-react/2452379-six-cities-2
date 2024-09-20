@@ -4,34 +4,46 @@ import Map from '../map/map';
 import PlacesList from '../places-list/places-list';
 import PlacesSortForm from '../places-sort-form/places-sort-form';
 import CitiesEmpty from './cities-empty/cities-empty';
+import { useAppSelector } from '../../hooks';
+import clsx from 'clsx';
+import AvailableLocations from '../available-locations/available-locations';
 
-type CitiesProps = {
-  offers: Offer[];
-}
-
-export default function Cities({ offers }: CitiesProps): JSX.Element {
+export default function Cities(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
-  const isEmpty = offers.length === 0;
+  const city = useAppSelector((state) => state.city);
+  const cityOffers = offers.filter((offer) => offer.city.name === city);
+  const isEmpty = cityOffers.length === 0;
 
   return (
-    <div className="cities">
-      {
-        isEmpty
-          ?
-          <CitiesEmpty />
-          :
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {offers[0].city.name}</b>
-              <PlacesSortForm />
-              <PlacesList onActiveCardChange={setActiveOffer} offers={offers} displayType={'main'}></PlacesList>
-            </section>
-            <div className="cities__right-section">
-              <Map className="cities__map" activeOffer={activeOffer} offers={offers} anchor={offers[0].city.location} mapOptions={{ zoomControl: false }} flyToActive />
-            </div>
-          </div>
-      }
-    </div>
+    <main className={clsx('page__main page__main--index', isEmpty && 'page__main--index-empty')}>
+      <AvailableLocations currentLocation={city} />
+      <div className="cities">
+        {
+          isEmpty
+            ? <CitiesEmpty />
+            : (
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{cityOffers.length} places to stay in {cityOffers[0].city.name}</b>
+                  <PlacesSortForm />
+                  <PlacesList onActiveCardChange={setActiveOffer} offers={cityOffers} displayType={'main'} />
+                </section>
+                <div className="cities__right-section">
+                  <Map
+                    className="cities__map"
+                    activeOffer={activeOffer}
+                    offers={cityOffers}
+                    anchor={cityOffers[0].city.location}
+                    mapOptions={{ zoomControl: false }}
+                    flyToActive
+                  />
+                </div>
+              </div>
+            )
+        }
+      </div>
+    </main>
   );
 }

@@ -11,20 +11,20 @@ type PlaceCardProps = {
   offer: Offer;
   displayType: PlaceCardDisplayType;
   onCardMouseEnter?: (offer: Offer) => void;
-  onCardMouseLeave?: () => void;
+  onCardMouseLeave?: (offer: null) => void;
 }
 
 const displayTypesClassNames: Record<PlaceCardDisplayType, { [k: string]: string }> = {
-  'main': {
+  main: {
     'place-card': 'cities__card',
     'place-card__image-wrapper': 'cities__image-wrapper',
   },
-  'favorite': {
+  favorite: {
     'place-card': 'favorites__card',
     'place-card__image-wrapper': 'favorites__image-wrapper',
     'place-card__info': 'favorites__card-info',
   },
-  'offer': {
+  offer: {
     'place-card': 'near-places__card',
     'place-card__image-wrapper': 'near-places__image-wrapper',
   }
@@ -50,7 +50,7 @@ function PlaceCard({ offer, displayType, onCardMouseEnter, onCardMouseLeave }: P
     onCardMouseEnter(offer);
   });
   const handleMouseLeave = onCardMouseLeave && (() => {
-    onCardMouseLeave();
+    onCardMouseLeave(null);
   });
 
   return (

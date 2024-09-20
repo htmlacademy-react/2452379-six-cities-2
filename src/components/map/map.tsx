@@ -9,7 +9,7 @@ import { MapData } from '../../types/common';
 type MapProps = {
   className: string;
   activeOffer: Pick<Offer, 'id' | 'location'> | null;
-  offers?: Pick<Offer, 'id' | 'location' | 'city'>[];
+  offers: Pick<Offer, 'id' | 'location' | 'city'>[];
   anchor: MapData;
   flyToActive?: boolean;
   mapOptions?: leaflet.MapOptions;
