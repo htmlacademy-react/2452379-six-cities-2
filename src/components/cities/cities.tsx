@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import { Offer } from '../../types/offer';
 import Map from '../map/map';
-import PlacesList from '../places-list/places-list';
-import PlacesSortForm from '../places-sort-form/places-sort-form';
 import CitiesEmpty from './cities-empty/cities-empty';
 import { useAppSelector } from '../../hooks';
 import clsx from 'clsx';
 import AvailableLocations from '../available-locations/available-locations';
+import Places from '../places/places';
 
 export default function Cities(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
-  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const city = useAppSelector((state) => state.city);
+  const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const cityOffers = offers.filter((offer) => offer.city.name === city);
   const isEmpty = cityOffers.length === 0;
 
@@ -24,12 +23,7 @@ export default function Cities(): JSX.Element {
             ? <CitiesEmpty />
             : (
               <div className="cities__places-container container">
-                <section className="cities__places places">
-                  <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{cityOffers.length} places to stay in {cityOffers[0].city.name}</b>
-                  <PlacesSortForm />
-                  <PlacesList onActiveCardChange={setActiveOffer} offers={cityOffers} displayType={'main'} />
-                </section>
+                <Places offers={cityOffers} onActivePlaceChange={setActiveOffer} />
                 <div className="cities__right-section">
                   <Map
                     className="cities__map"

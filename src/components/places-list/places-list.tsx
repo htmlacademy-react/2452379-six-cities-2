@@ -5,7 +5,7 @@ import PlaceCard from '../place-card/place-card';
 type PlacesListProps = {
   offers: Offer[];
   displayType: PlaceCardDisplayType;
-  onActiveCardChange?: (offer: Offer | null) => void;
+  onActivePlaceChange?: (offer: Offer | null) => void;
 }
 
 const displayTypesClassNames: Record<PlaceCardDisplayType, string> = {
@@ -14,11 +14,11 @@ const displayTypesClassNames: Record<PlaceCardDisplayType, string> = {
   'offer': 'near-places__list places__list'
 };
 
-function PlacesList({ offers, displayType, onActiveCardChange }: PlacesListProps): JSX.Element {
+function PlacesList({ offers, displayType, onActivePlaceChange }: PlacesListProps): JSX.Element {
   const cards = offers.map((offer) => (
     <PlaceCard
-      onCardMouseEnter={onActiveCardChange}
-      onCardMouseLeave={onActiveCardChange}
+      onCardMouseEnter={onActivePlaceChange}
+      onCardMouseLeave={onActivePlaceChange}
       key={offer.id}
       offer={offer}
       displayType={displayType}
