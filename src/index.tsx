@@ -5,7 +5,7 @@ import App from './components/app/app';
 import store from './store';
 import { getOffersThunk } from './store/extra/offers-actions';
 
-await store.dispatch(getOffersThunk());
+store.dispatch(getOffersThunk());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

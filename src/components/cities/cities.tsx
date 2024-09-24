@@ -16,7 +16,7 @@ export default function Cities(): JSX.Element {
   const offers = useAppSelector(getOffers);
   const sortType = useAppSelector(getSortType);
   const isLoading = useAppSelector(getIsLoading);
-  const sortedCityOffers = useMemo(() => getSortedCityOffers({offers, city, sortType}), [city, sortType]);
+  const sortedCityOffers = useMemo(() => getSortedCityOffers({offers, city, sortType}), [offers, city, sortType]);
 
   const isEmpty = sortedCityOffers.length === 0;
 
