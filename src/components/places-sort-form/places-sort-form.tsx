@@ -1,23 +1,51 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { OfferSortType } from '../../types/sort';
+import { offersSortTypes } from '../../const';
+import { useOnClickOutside } from 'usehooks-ts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getSortType } from '../../store/sort-process/sort-process.selectors';
+import { changeSort } from '../../store/sort-process/sort-process.slice';
+
+
+const offerSortTypesTitles: Record<OfferSortType, string> = {
+  'none': 'Popular',
+  'priceAsc': 'Price: low to high',
+  'priceDesc': 'Price: high to low',
+  'topDesc': 'Top rated first'
+};
 
 export default function PlacesSortForm(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const type = useAppSelector(getSortType);
+  const ref = useRef(null);
   const [isOpened, setIsOpened] = useState(false);
+  useOnClickOutside(ref, () => setIsOpened(false));
 
   return (
-    <form onClick={() => setIsOpened(!isOpened)} className="places__sorting" action="#" method="get">
+    <form ref={ref} onClick={() => setIsOpened(!isOpened)} className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0}>
-        Popular
+        {offerSortTypesTitles[type]}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
       <ul className={clsx('places__options places__options--custom', isOpened ? 'places__options--opened' : 'places__options--closed')}>
-        <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-        <li className="places__option" tabIndex={0}>Price: low to high</li>
-        <li className="places__option" tabIndex={0}>Price: high to low</li>
-        <li className="places__option" tabIndex={0}>Top rated first</li>
+        {
+          Object
+            .keys(offersSortTypes)
+            .map((sortType) => (
+              <li
+                key={sortType}
+                className={clsx('places__option', sortType === type && 'places__option--active')}
+                onClick={() => dispatch(changeSort(sortType as OfferSortType))}
+                tabIndex={0}
+              >
+                {offerSortTypesTitles[sortType as OfferSortType]}
+              </li>
+            ))
+        }
       </ul>
     </form>
   );

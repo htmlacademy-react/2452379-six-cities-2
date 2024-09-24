@@ -1,4 +1,8 @@
+import { CityName } from './types/city';
 import { OfferType } from './types/offer';
+import { OfferSort, OfferSortType } from './types/sort';
+
+export const DEFAULT_CITY: CityName = 'Paris';
 
 export enum AppRoute {
   Main = '/',
@@ -7,10 +11,38 @@ export enum AppRoute {
   Offer = '/offer/:id'
 }
 
+export enum ApiRoute {
+  Offers = '/offers',
+  OfferById = '/offers/:offerId',
+  OffersNearby = '/offers/:offerId/nearby',
+  Reviews = '/comments/:offerId'
+}
+
+export enum ApiAction {
+  getOffers = 'OFFERS/getOffers',
+  getOffer = 'OFFERS/getOffer',
+  getOffersNearby = 'OFFERS/getOffersNearby',
+  getReviews = 'reviews/getReviews'
+}
+
+export enum CitiesAction {
+  init = 'CITIES/init',
+  getCityOffers = 'CITIES/getCityOffers',
+  changeCity = 'CITIES/changeCity'
+}
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN'
+}
+
+export enum NameSpace {
+  User = 'USER',
+  Cities = 'CITIES',
+  Offers = 'OFFERS',
+  Reviews = 'REVIEWS',
+  Sort = 'SORT'
 }
 
 export const offerTypes: Record<OfferType, string> = {
@@ -18,6 +50,13 @@ export const offerTypes: Record<OfferType, string> = {
   'hotel': 'Hotel',
   'room': 'Room',
   'house': 'House'
+};
+
+export const offersSortTypes: Record<OfferSortType, OfferSort> = {
+  'none': () => 0,
+  'priceAsc': (offerA, offerB) => +(offerA.price > offerB.price),
+  'priceDesc': (offerA, offerB) => +(offerA.price < offerB.price),
+  'topDesc': (offerA, offerB) => +(offerA.rating < offerB.rating)
 };
 
 export const AVAILABLE_LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;

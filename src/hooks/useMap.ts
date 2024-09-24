@@ -18,7 +18,7 @@ export default function useMap(mapElementRef:React.RefObject<HTMLDivElement>, lo
         })
         .addTo(mapRef.current);
     }
-  }, [mapElementRef, location]);
+  }, [mapElementRef, location, options]);
 
   return mapRef;
 }
