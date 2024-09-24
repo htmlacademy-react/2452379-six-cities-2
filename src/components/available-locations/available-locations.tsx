@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useAppDispatch } from '../../hooks';
-import { changeCityAction } from '../../store/actions';
+import { changeCity } from '../../store/cities-process/cities-process.slice';
 import { AVAILABLE_LOCATIONS } from '../../const';
 import { CityName } from '../../types/city';
 
@@ -22,7 +22,7 @@ export default function AvailableLocations({ currentLocation }: AvailableLocatio
                 <li
                   key={location}
                   className="locations__item"
-                  onClick={() => dispatch(changeCityAction(location))}
+                  onClick={() => dispatch(changeCity(location))}
                 >
                   <a className={clsx('locations__item-link tabs__item', currentLocation === location && 'tabs__item--active')} href="#">
                     <span>{location}</span>

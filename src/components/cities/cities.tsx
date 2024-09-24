@@ -6,12 +6,15 @@ import { useAppSelector } from '../../hooks';
 import clsx from 'clsx';
 import AvailableLocations from '../available-locations/available-locations';
 import Places from '../places/places';
+import { getIsLoading, getOffers } from '../../store/offers-process/offers-process.selectors';
+import { getCity } from '../../store/cities-process/cities-process.selectors';
 
 export default function Cities(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
-  const city = useAppSelector((state) => state.city);
+  const offers = useAppSelector(getOffers);
+  const city = useAppSelector(getCity);
   const [activeOffer, setActiveOffer] = useState<Offer | null>(null);
   const cityOffers = offers.filter((offer) => offer.city.name === city);
+  const isLoading = useAppSelector(getIsLoading);
   const isEmpty = cityOffers.length === 0;
 
   return (
@@ -20,7 +23,7 @@ export default function Cities(): JSX.Element {
       <div className="cities">
         {
           isEmpty
-            ? <CitiesEmpty />
+            ? <CitiesEmpty isLoading={isLoading} />
             : (
               <div className="cities__places-container container">
                 <Places offers={cityOffers} onActivePlaceChange={setActiveOffer} />

@@ -1,16 +1,12 @@
-import { createReducer } from '@reduxjs/toolkit';
-import { changeCityAction } from './actions';
-import { AVAILABLE_LOCATIONS } from '../const';
-import { CityName } from '../types/city';
-import offers from '../mocks/offers';
+import { combineReducers } from '@reduxjs/toolkit';
+import { NameSpace } from '../const';
+import { citiesProcess } from './cities-process/cities-process.slice';
+import { offersProcess } from './offers-process/offers-process.slice';
+import { reviewsProcess } from './reviews-process/reviews-process.slice';
 
-const initialState = {
-  city: AVAILABLE_LOCATIONS[0] as CityName,
-  offers: offers
-};
 
-export const reducer = createReducer(initialState, (builder) => {
-  builder.addCase(changeCityAction, (state, action) => {
-    state.city = action.payload;
-  });
+export const reducer = combineReducers({
+  [NameSpace.Cities]: citiesProcess.reducer,
+  [NameSpace.Offers]: offersProcess.reducer,
+  [NameSpace.Reviews]: reviewsProcess.reducer
 });

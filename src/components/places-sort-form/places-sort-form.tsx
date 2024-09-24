@@ -1,7 +1,8 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { OfferSortType } from '../../types/sort';
 import { offersSortTypes } from '../../const';
+import { useOnClickOutside } from 'usehooks-ts';
 
 type PlacesSortFormProps = {
   type: OfferSortType;
@@ -9,10 +10,12 @@ type PlacesSortFormProps = {
 };
 
 export default function PlacesSortForm({ type, onSortChange }: PlacesSortFormProps): JSX.Element {
+  const ref = useRef(null);
   const [isOpened, setIsOpened] = useState(false);
+  useOnClickOutside(ref, () => setIsOpened(false));
 
   return (
-    <form onClick={() => setIsOpened(!isOpened)} className="places__sorting" action="#" method="get">
+    <form ref={ref} onClick={() => setIsOpened(!isOpened)} className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0}>
         {type}
