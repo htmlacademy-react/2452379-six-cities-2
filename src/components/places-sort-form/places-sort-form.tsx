@@ -3,13 +3,21 @@ import { useRef, useState } from 'react';
 import { OfferSortType } from '../../types/sort';
 import { offersSortTypes } from '../../const';
 import { useOnClickOutside } from 'usehooks-ts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getSortType } from '../../store/sort-process/sort-process.selectors';
+import { changeSort } from '../../store/sort-process/sort-process.slice';
 
-type PlacesSortFormProps = {
-  type: OfferSortType;
-  onSortChange: (sortType: OfferSortType) => void;
+
+const offerSortTypesTitles: Record<OfferSortType, string> = {
+  'none': 'Popular',
+  'priceAsc': 'Price: low to high',
+  'priceDesc': 'Price: high to low',
+  'topDesc': 'Top rated first'
 };
 
-export default function PlacesSortForm({ type, onSortChange }: PlacesSortFormProps): JSX.Element {
+export default function PlacesSortForm(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const type = useAppSelector(getSortType);
   const ref = useRef(null);
   const [isOpened, setIsOpened] = useState(false);
   useOnClickOutside(ref, () => setIsOpened(false));
@@ -18,7 +26,7 @@ export default function PlacesSortForm({ type, onSortChange }: PlacesSortFormPro
     <form ref={ref} onClick={() => setIsOpened(!isOpened)} className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0}>
-        {type}
+        {offerSortTypesTitles[type]}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
@@ -31,10 +39,10 @@ export default function PlacesSortForm({ type, onSortChange }: PlacesSortFormPro
               <li
                 key={sortType}
                 className={clsx('places__option', sortType === type && 'places__option--active')}
-                onClick={() => onSortChange(sortType as OfferSortType)}
+                onClick={() => dispatch(changeSort(sortType as OfferSortType))}
                 tabIndex={0}
               >
-                {sortType}
+                {offerSortTypesTitles[sortType as OfferSortType]}
               </li>
             ))
         }

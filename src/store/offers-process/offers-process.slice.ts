@@ -1,11 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { OffersProcess } from '../../types/state';
-import { fetchOffersThunk, getNearbyOffersThunk, getOfferThunk } from '../api-actions';
+import { getNearbyOffersThunk, getOffersThunk, getOfferThunk } from '../extra/offers-actions';
+import { Offer } from '../../types/offer';
 
 const initialState: OffersProcess = {
   offers: [],
-  currentOffer: null,
+  activeOffer: null,
   nearbyOffers: [],
 
   isLoading: false
@@ -14,21 +15,27 @@ const initialState: OffersProcess = {
 export const offersProcess = createSlice({
   name: NameSpace.Offers,
   initialState,
-  reducers: {},
+  reducers: {
+    setActiveOffer: (state, action: PayloadAction<Offer | null>) => {
+      state.activeOffer = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchOffersThunk.pending, (state) => {
+      .addCase(getOffersThunk.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchOffersThunk.fulfilled, (state, action) => {
+      .addCase(getOffersThunk.fulfilled, (state, action) => {
         state.offers = action.payload;
         state.isLoading = false;
       })
       .addCase(getOfferThunk.fulfilled, (state, action) => {
-        state.currentOffer = action.payload;
+        state.activeOffer = action.payload;
       })
       .addCase(getNearbyOffersThunk.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;
       });
   }
 });
+
+export const { setActiveOffer } = offersProcess.actions;

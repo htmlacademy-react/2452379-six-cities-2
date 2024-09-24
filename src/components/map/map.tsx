@@ -2,16 +2,16 @@ import clsx from 'clsx';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect, useRef } from 'react';
-import { Offer } from '../../types/offer';
+import { OfferLocation } from '../../types/offer';
 import useMap from '../../hooks/useMap';
 import { MapData } from '../../types/common';
+import { useAppSelector } from '../../hooks';
+import { getActiveOfferLocation } from '../../store/offers-process/offers-process.selectors';
 
 type MapProps = {
   className: string;
-  activeOffer: Pick<Offer, 'id' | 'location'> | null;
-  offers: Pick<Offer, 'id' | 'location' | 'city'>[];
+  offers: OfferLocation[];
   anchor: MapData;
-  flyToActive?: boolean;
   mapOptions?: leaflet.MapOptions;
 }
 
@@ -32,7 +32,8 @@ const markerTypes = {
   },
 };
 
-export default function Map({ activeOffer, className, offers, anchor, mapOptions, flyToActive = false }: MapProps): JSX.Element {
+export default function Map({ className, offers, anchor, mapOptions }: MapProps): JSX.Element {
+  const activeLocation = useAppSelector(getActiveOfferLocation);
   const mapElementRef = useRef<HTMLDivElement>(null);
   const mapRef = useMap(mapElementRef, anchor, mapOptions);
 
@@ -41,23 +42,21 @@ export default function Map({ activeOffer, className, offers, anchor, mapOptions
     offers
       ?.forEach(({ id, location }) => {
         leaflet
-          .marker({ lat: location.latitude, lng: location.longitude }, id === activeOffer?.id ? markerTypes.active : markerTypes.default)
+          .marker({ lat: location.latitude, lng: location.longitude }, id === activeLocation?.id ? markerTypes.active : markerTypes.default)
           .addTo(markerLayer);
       });
 
     mapRef.current?.addLayer(markerLayer);
 
-    if (flyToActive) {
-      mapRef.current?.flyTo({
-        lat: activeOffer?.location.latitude || anchor.latitude,
-        lng: activeOffer?.location.longitude || anchor.longitude
-      }, activeOffer?.location.zoom || anchor.zoom);
-    }
+    mapRef.current?.flyTo({
+      lat: activeLocation?.location.latitude || anchor.latitude,
+      lng: activeLocation?.location.longitude || anchor.longitude
+    }, activeLocation?.location.zoom || anchor.zoom);
 
     return () => {
       mapRef.current?.removeLayer(markerLayer);
     };
-  }, [mapRef, offers, activeOffer]);
+  }, [mapRef, offers, activeLocation, anchor]);
 
   return (
     <section className={clsx('map', className)}>

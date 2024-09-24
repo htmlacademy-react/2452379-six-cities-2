@@ -1,15 +1,13 @@
 import clsx from 'clsx';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity } from '../../store/cities-process/cities-process.slice';
 import { AVAILABLE_LOCATIONS } from '../../const';
-import { CityName } from '../../types/city';
+import { getCity } from '../../store/cities-process/cities-process.selectors';
 
-type AvailableLocationsProps = {
-  currentLocation: CityName;
-};
 
-export default function AvailableLocations({ currentLocation }: AvailableLocationsProps): JSX.Element {
+export default function AvailableLocations(): JSX.Element {
   const dispatch = useAppDispatch();
+  const city = useAppSelector(getCity);
 
   return (
     <>
@@ -24,7 +22,7 @@ export default function AvailableLocations({ currentLocation }: AvailableLocatio
                   className="locations__item"
                   onClick={() => dispatch(changeCity(location))}
                 >
-                  <a className={clsx('locations__item-link tabs__item', currentLocation === location && 'tabs__item--active')} href="#">
+                  <a className={clsx('locations__item-link tabs__item', location === city && 'tabs__item--active')} href="#">
                     <span>{location}</span>
                   </a>
                 </li>

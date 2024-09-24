@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ApiAction, ApiRoute } from '../const';
-import { Offer, OfferFull, OfferId } from '../types/offer';
-import { AppDispatch, State } from '../types/state';
+import { ApiAction, ApiRoute } from '../../const';
+import { Offer, OfferFull, OfferId } from '../../types/offer';
+import { AppDispatch, State } from '../../types/state';
 import { AxiosInstance } from 'axios';
 import { generatePath } from 'react-router-dom';
-import { Review } from '../types/review';
+import { Review } from '../../types/review';
 
-export const fetchOffersThunk =
+export const getOffersThunk =
   createAsyncThunk<
     Offer[],
     undefined,

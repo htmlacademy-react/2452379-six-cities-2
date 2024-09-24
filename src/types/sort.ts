@@ -1,5 +1,5 @@
 import { Offer } from './offer';
 
-export type OfferSortType = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
+export type OfferSortType = 'none' | 'priceAsc' | 'priceDesc' | 'topDesc';
 
 export type OfferSort = (offerA: Offer, offerB: Offer) => number;

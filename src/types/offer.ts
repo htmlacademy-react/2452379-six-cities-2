@@ -32,3 +32,9 @@ export type OfferDetails = {
 }
 
 export type OfferFull = Omit<Offer, 'previewImage'> & OfferDetails;
+
+export function isOfferFull(offer: Offer | OfferFull | null): offer is OfferFull {
+  return !!offer && (offer as OfferFull).goods !== undefined;
+}
+
+export type OfferLocation = Pick<Offer, 'id' | 'location'>;

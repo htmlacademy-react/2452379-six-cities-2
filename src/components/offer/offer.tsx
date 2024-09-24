@@ -93,9 +93,8 @@ export default function Offer({ offer, reviews, nearOffers }: OfferProps): JSX.E
       </div>
       <Map
         className="offer__map"
-        activeOffer={offer}
         offers={[offer, ...nearOffers]}
-        anchor={offer?.location}
+        anchor={offer.location}
         mapOptions={{ dragging: false, scrollWheelZoom: false, zoomControl: false }}
       />
     </section>

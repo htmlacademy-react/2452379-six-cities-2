@@ -4,13 +4,14 @@ import Offer from '../../components/offer/offer';
 import { useEffect } from 'react';
 import PlacesList from '../../components/places-list/places-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getNearbyOffersThunk, getOfferThunk, getReviewsThunk } from '../../store/api-actions';
-import { getCurrentOffer, getNearbyOffers } from '../../store/offers-process/offers-process.selectors';
+import { getNearbyOffersThunk, getOfferThunk, getReviewsThunk } from '../../store/extra/offers-actions';
+import { getActiveOffer, getNearbyOffers } from '../../store/offers-process/offers-process.selectors';
 import { getReviews } from '../../store/reviews-process/reviews-process.selectors';
+import { isOfferFull } from '../../types/offer';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const offer = useAppSelector(getCurrentOffer);
+  const offer = useAppSelector(getActiveOffer);
   const nearbyOffers = useAppSelector(getNearbyOffers);
   const reviews = useAppSelector(getReviews);
   const offerId = useParams().id;
@@ -26,7 +27,7 @@ function OfferPage(): JSX.Element {
   return (
     <Layout>
       <main className="page__main page__main--offer">
-        {offer && <Offer offer={offer} nearOffers={nearbyOffers} reviews={reviews} />}
+        {isOfferFull(offer) && <Offer offer={offer} nearOffers={nearbyOffers} reviews={reviews} />}
         <div className="container">
           {nearbyOffers && <PlacesList offers={nearbyOffers} displayType='offer' />}
         </div>
