@@ -15,14 +15,16 @@ export enum ApiRoute {
   Offers = '/offers',
   OfferById = '/offers/:offerId',
   OffersNearby = '/offers/:offerId/nearby',
-  Reviews = '/comments/:offerId'
+  Reviews = '/comments/:offerId',
+  Auth = '/login'
 }
 
 export enum ApiAction {
   getOffers = 'OFFERS/getOffers',
   getOffer = 'OFFERS/getOffer',
   getOffersNearby = 'OFFERS/getOffersNearby',
-  getReviews = 'reviews/getReviews'
+  getReviews = 'reviews/getReviews',
+  auth = 'USER/auth'
 }
 
 export enum CitiesAction {

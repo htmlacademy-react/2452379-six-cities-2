@@ -1,3 +1,4 @@
+import { AuthorizationStatus } from '../const';
 import store from '../store';
 import { CityName } from './city';
 import { Offer, OfferFull } from './offer';
@@ -25,3 +26,7 @@ export type OffersProcess = {
 export type SortProcess = {
   type: OfferSortType;
 };
+
+export type UserProcess = {
+  authStatus: AuthorizationStatus;
+}
