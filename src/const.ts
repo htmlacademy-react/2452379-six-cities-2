@@ -28,6 +28,7 @@ export enum ApiAction {
   getOffers = 'OFFERS/getOffers',
   getOffersNearby = 'OFFERS/getOffersNearby',
   getReviews = 'REVIEWS/getReviews',
+  postReview = 'REVIEWS/postReview',
 }
 
 export enum CitiesAction {

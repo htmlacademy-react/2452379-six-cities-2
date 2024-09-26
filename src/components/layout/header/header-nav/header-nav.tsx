@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../../../const';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { getAuthStatus, getUserEmail } from '../../../../store/slices/user/user.selectors';
-import { logOut } from '../../../../store/slices/user/user.thunks';
+import { logOutThunk } from '../../../../store/slices/user/user.thunks';
 
 function HeaderNav(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -12,7 +12,7 @@ function HeaderNav(): JSX.Element {
   const isLoggedIn = authStatus === AuthorizationStatus.Auth;
 
   const handleSignOutClick = () => {
-    dispatch(logOut());
+    dispatch(logOutThunk());
   };
 
   return (

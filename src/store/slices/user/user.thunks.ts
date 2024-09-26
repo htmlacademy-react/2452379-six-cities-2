@@ -3,7 +3,7 @@ import { UserData, UserLogIn } from '../../../types/user';
 import { AppDispatch, State, ThunksExtraArgument } from '../../type';
 import { ApiAction, ApiRoute, AppRoute } from '../../../const';
 
-export const fetchAuth = createAsyncThunk<
+export const fetchAuthThunk = createAsyncThunk<
   UserData,
   undefined,
   {
@@ -19,7 +19,7 @@ export const fetchAuth = createAsyncThunk<
   return data;
 });
 
-export const logIn = createAsyncThunk<
+export const logInThunk = createAsyncThunk<
   UserData,
   UserLogIn,
   {
@@ -33,7 +33,7 @@ export const logIn = createAsyncThunk<
   return data;
 });
 
-export const logOut = createAsyncThunk<
+export const logOutThunk = createAsyncThunk<
   UserData,
   undefined,
   {

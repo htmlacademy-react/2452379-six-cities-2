@@ -1,7 +1,7 @@
 import { FormEvent, useRef } from 'react';
 import Layout from '../../components/layout/layout';
 import { useAppDispatch } from '../../hooks';
-import { logIn } from '../../store/slices/user/user.thunks';
+import { logInThunk } from '../../store/slices/user/user.thunks';
 
 function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -12,7 +12,7 @@ function LoginPage(): JSX.Element {
     evt.preventDefault();
 
     if (emailRef.current && passwordRef.current) {
-      dispatch(logIn({ email: emailRef.current?.value, password: passwordRef.current?.value }));
+      dispatch(logInThunk({ email: emailRef.current?.value, password: passwordRef.current?.value }));
     }
   };
 

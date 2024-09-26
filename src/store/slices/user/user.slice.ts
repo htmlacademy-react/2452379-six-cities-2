@@ -3,7 +3,7 @@ import { AuthorizationStatus, NameSpace } from '../../../const';
 import { removeToken, saveToken } from '../../../services/token';
 import { UserData } from '../../../types/user';
 import { UserSlice } from './type';
-import { fetchAuth, logIn, logOut } from './user.thunks';
+import { fetchAuthThunk, logInThunk, logOutThunk } from './user.thunks';
 
 const initialState: UserSlice = {
   authStatus: AuthorizationStatus.Unknown,
@@ -16,23 +16,23 @@ export const userProcess = createSlice({
   reducers: { },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAuth.fulfilled, (state, action: PayloadAction<UserData>) => {
+      .addCase(fetchAuthThunk.fulfilled, (state, action: PayloadAction<UserData>) => {
         state.authStatus = AuthorizationStatus.Auth;
         state.userData = action.payload;
         saveToken(action.payload.token);
       })
-      .addCase(fetchAuth.rejected, (state) => {
+      .addCase(fetchAuthThunk.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
       })
-      .addCase(logIn.fulfilled, (state, action: PayloadAction<UserData>) => {
+      .addCase(logInThunk.fulfilled, (state, action: PayloadAction<UserData>) => {
         state.authStatus = AuthorizationStatus.Auth;
         state.userData = action.payload;
         saveToken(action.payload.token);
       })
-      .addCase(logIn.rejected, (state) => {
+      .addCase(logInThunk.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
       })
-      .addCase(logOut.fulfilled, (state) => {
+      .addCase(logOutThunk.fulfilled, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
         state.userData = null;
         removeToken();
