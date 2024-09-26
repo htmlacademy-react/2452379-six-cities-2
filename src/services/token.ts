@@ -8,7 +8,7 @@ export const getToken = (): Token => {
   return token ?? '';
 };
 
-export const saveToken = (token: Token) => {
+export const saveToken = (token: string) => {
   localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
 };
 

@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
-import { OffersProcess } from '../../types/state';
-import { getNearbyOffersThunk, getOffersThunk, getOfferThunk } from '../extra/offers-actions';
-import { Offer } from '../../types/offer';
+import { getNearbyOffersThunk, getOffersThunk, getOfferThunk } from './offers.thunks';
+import { OffersSlice } from './type';
+import { NameSpace } from '../../../const';
+import { Offer } from '../../../types/offer';
 
-const initialState: OffersProcess = {
+const initialState: OffersSlice = {
   offers: [],
   activeOffer: null,
   nearbyOffers: [],

@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
-import { getReviewsThunk } from '../extra/offers-actions';
-import { ReviewsProcess } from '../../types/state';
+import { ReviewsSlice } from './type';
+import { NameSpace } from '../../../const';
+import { getReviewsThunk } from './reviews.thunks';
 
-const initialState: ReviewsProcess = {
+const initialState: ReviewsSlice = {
   reviews: []
 };
 

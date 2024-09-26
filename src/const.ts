@@ -3,6 +3,7 @@ import { OfferType } from './types/offer';
 import { OfferSort, OfferSortType } from './types/sort';
 
 export const DEFAULT_CITY: CityName = 'Paris';
+export const DEFAULT_SORT_TYPE: OfferSortType = 'none';
 
 export enum AppRoute {
   Main = '/',
@@ -24,7 +25,8 @@ export enum ApiAction {
   getOffer = 'OFFERS/getOffer',
   getOffersNearby = 'OFFERS/getOffersNearby',
   getReviews = 'reviews/getReviews',
-  auth = 'USER/auth'
+  fetchAuth = 'USER/fetchAuth',
+  auth = 'USER/auth',
 }
 
 export enum CitiesAction {
@@ -41,10 +43,9 @@ export enum AuthorizationStatus {
 
 export enum NameSpace {
   User = 'USER',
-  Cities = 'CITIES',
+  App = 'APP',
   Offers = 'OFFERS',
   Reviews = 'REVIEWS',
-  Sort = 'SORT'
 }
 
 export const offerTypes: Record<OfferType, string> = {

@@ -4,8 +4,8 @@ import { OfferSortType } from '../../types/sort';
 import { offersSortTypes } from '../../const';
 import { useOnClickOutside } from 'usehooks-ts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getSortType } from '../../store/sort-process/sort-process.selectors';
-import { changeSort } from '../../store/sort-process/sort-process.slice';
+import { getSortType } from '../../store/slices/app/app.selectors';
+import { changeSort } from '../../store/slices/app/app.slice';
 
 
 const offerSortTypesTitles: Record<OfferSortType, string> = {

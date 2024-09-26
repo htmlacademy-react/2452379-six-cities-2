@@ -4,10 +4,11 @@ import Offer from '../../components/offer/offer';
 import { useEffect } from 'react';
 import PlacesList from '../../components/places-list/places-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getNearbyOffersThunk, getOfferThunk, getReviewsThunk } from '../../store/extra/offers-actions';
-import { getActiveOffer, getNearbyOffers } from '../../store/offers-process/offers-process.selectors';
-import { getReviews } from '../../store/reviews-process/reviews-process.selectors';
 import { isOfferFull } from '../../types/offer';
+import { getActiveOffer, getNearbyOffers } from '../../store/slices/offers/offers.selectors';
+import { getOfferThunk, getNearbyOffersThunk } from '../../store/slices/offers/offers.thunks';
+import { getReviews } from '../../store/slices/reviews/reviews.selectors';
+import { getReviewsThunk } from '../../store/slices/reviews/reviews.thunks';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();

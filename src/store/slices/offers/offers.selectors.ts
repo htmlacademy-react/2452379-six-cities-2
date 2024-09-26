@@ -1,6 +1,7 @@
-import { NameSpace } from '../../const';
-import { OfferLocation } from '../../types/offer';
-import { State } from '../../types/state';
+import { State } from '../../type';
+import { NameSpace } from '../../../const';
+import { OfferLocation } from '../../../types/offer';
+
 
 type OffersState = Pick<State, NameSpace.Offers>;
 

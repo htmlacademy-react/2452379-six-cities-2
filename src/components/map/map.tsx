@@ -6,7 +6,7 @@ import { OfferLocation } from '../../types/offer';
 import useMap from '../../hooks/useMap';
 import { MapData } from '../../types/common';
 import { useAppSelector } from '../../hooks';
-import { getActiveOfferLocation } from '../../store/offers-process/offers-process.selectors';
+import { getActiveOfferLocation } from '../../store/slices/offers/offers.selectors';
 
 type MapProps = {
   className: string;

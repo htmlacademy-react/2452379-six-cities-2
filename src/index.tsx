@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
 import store from './store';
-import { getOffersThunk } from './store/extra/offers-actions';
-import { tryAuth } from './store/extra/user-actions';
+import { fetchAuth } from './store/slices/user/user.thunks';
+import { getOffersThunk } from './store/slices/offers/offers.thunks';
 
 store.dispatch(getOffersThunk());
-store.dispatch(tryAuth());
+store.dispatch(fetchAuth());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

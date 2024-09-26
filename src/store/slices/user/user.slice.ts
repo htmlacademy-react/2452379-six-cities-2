@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthorizationStatus, NameSpace } from '../../const';
-import { UserProcess } from '../../types/state';
-import { tryAuth } from '../extra/user-actions';
-import { saveToken } from '../../services/token';
-import { UserAuth } from '../../types/user';
+import { AuthorizationStatus, NameSpace } from '../../../const';
+import { saveToken } from '../../../services/token';
+import { UserAuth } from '../../../types/user';
+import { UserSlice } from './type';
+import { fetchAuth } from './user.thunks';
 
-const initialState: UserProcess = {
+const initialState: UserSlice = {
   authStatus: AuthorizationStatus.Unknown
 };
 
@@ -15,11 +15,11 @@ export const userProcess = createSlice({
   reducers: { },
   extraReducers: (builder) => {
     builder
-      .addCase(tryAuth.fulfilled, (state, action: PayloadAction<UserAuth>) => {
+      .addCase(fetchAuth.fulfilled, (state, action: PayloadAction<UserAuth>) => {
         state.authStatus = AuthorizationStatus.Auth;
         saveToken(action.payload.token);
       })
-      .addCase(tryAuth.rejected, (state, action) => {
+      .addCase(fetchAuth.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
       });
   }

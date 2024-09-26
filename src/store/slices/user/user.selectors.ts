@@ -1,5 +1,5 @@
-import { NameSpace } from '../../const';
-import { State } from '../../types/state';
+import { NameSpace } from '../../../const';
+import { State } from '../../type';
 
 type UserState = Pick<State, NameSpace.User>;
 
