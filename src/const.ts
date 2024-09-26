@@ -21,18 +21,26 @@ export enum ApiRoute {
 }
 
 export enum ApiAction {
-  getOffers = 'OFFERS/getOffers',
-  getOffer = 'OFFERS/getOffer',
-  getOffersNearby = 'OFFERS/getOffersNearby',
-  getReviews = 'reviews/getReviews',
   fetchAuth = 'USER/fetchAuth',
-  auth = 'USER/auth',
+  logIn = 'USER/logIn',
+  logOut = 'USER/logOut',
+  getOffer = 'OFFERS/getOffer',
+  getOffers = 'OFFERS/getOffers',
+  getOffersNearby = 'OFFERS/getOffersNearby',
+  getReviews = 'REVIEWS/getReviews',
 }
 
 export enum CitiesAction {
   init = 'CITIES/init',
   getCityOffers = 'CITIES/getCityOffers',
   changeCity = 'CITIES/changeCity'
+}
+
+export enum FetchStatus {
+  Idle,
+  Pending,
+  Fullfilled,
+  Rejected
 }
 
 export enum AuthorizationStatus {

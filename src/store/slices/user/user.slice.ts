@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus, NameSpace } from '../../../const';
-import { saveToken } from '../../../services/token';
-import { UserAuth } from '../../../types/user';
+import { removeToken, saveToken } from '../../../services/token';
+import { UserData } from '../../../types/user';
 import { UserSlice } from './type';
-import { fetchAuth } from './user.thunks';
+import { fetchAuth, logIn, logOut } from './user.thunks';
 
 const initialState: UserSlice = {
-  authStatus: AuthorizationStatus.Unknown
+  authStatus: AuthorizationStatus.Unknown,
+  userData: null
 };
 
 export const userProcess = createSlice({
@@ -15,12 +16,26 @@ export const userProcess = createSlice({
   reducers: { },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAuth.fulfilled, (state, action: PayloadAction<UserAuth>) => {
+      .addCase(fetchAuth.fulfilled, (state, action: PayloadAction<UserData>) => {
         state.authStatus = AuthorizationStatus.Auth;
+        state.userData = action.payload;
         saveToken(action.payload.token);
       })
       .addCase(fetchAuth.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
+      })
+      .addCase(logIn.fulfilled, (state, action: PayloadAction<UserData>) => {
+        state.authStatus = AuthorizationStatus.Auth;
+        state.userData = action.payload;
+        saveToken(action.payload.token);
+      })
+      .addCase(logIn.rejected, (state) => {
+        state.authStatus = AuthorizationStatus.NoAuth;
+      })
+      .addCase(logOut.fulfilled, (state) => {
+        state.authStatus = AuthorizationStatus.NoAuth;
+        state.userData = null;
+        removeToken();
       });
   }
 });

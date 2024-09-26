@@ -1,6 +1,6 @@
 import { Review } from '../../types/review';
 import CommentForm from '../comment-form/comment-form';
-import ReviewItem from '../review-item/review-item';
+import ReviewItem from './review-item/review-item';
 
 type ReviewsListProps = {
   reviews: Review[];

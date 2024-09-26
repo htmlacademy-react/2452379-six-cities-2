@@ -1,6 +1,6 @@
 import { Offer } from '../../types/offer';
 import { PlaceCardDisplayType } from '../../types/place-card';
-import PlaceCard from '../place-card/place-card';
+import PlaceCard from './place-card/place-card';
 
 type PlacesListProps = {
   offers: Offer[];

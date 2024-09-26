@@ -2,7 +2,7 @@ import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/slices/offers/offers.selectors';
 import { CityName } from '../../types/city';
 import { Offer } from '../../types/offer';
-import FavoritesItem from '../favorite-item/favorite-item';
+import FavoritesItem from './favorite-item/favorite-item';
 
 export default function FavoritesList() {
   const offers = useAppSelector(getOffers);

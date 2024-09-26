@@ -1,11 +1,11 @@
 import clsx from 'clsx';
-import { Offer } from '../../types/offer';
-import { PlaceCardDisplayType } from '../../types/place-card';
+import { Offer } from '../../../types/offer';
+import { PlaceCardDisplayType } from '../../../types/place-card';
 import { Link, generatePath } from 'react-router-dom';
-import { AppRoute, offerTypes } from '../../const';
-import Bookmark from '../bookmark/bookmark';
-import { Size } from '../../types/common';
-import StarsRating from '../stars-rating/stars-rating';
+import { AppRoute, offerTypes } from '../../../const';
+import Bookmark from '../../bookmark/bookmark';
+import { Size } from '../../../types/common';
+import StarsRating from '../../stars-rating/stars-rating';
 
 type PlaceCardProps = {
   offer: Offer;

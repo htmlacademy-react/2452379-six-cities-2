@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
-import HeaderNav from '../header-nav/header-nav';
-import { AppRoute } from '../../const';
+import HeaderNav from './header-nav/header-nav';
+import { AppRoute } from '../../../const';
 
-function Header(): JSX.Element {
+type HeaderProps = {
+  disableNav?: boolean;
+}
+
+function Header({ disableNav = false }: HeaderProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">
@@ -12,7 +16,7 @@ function Header(): JSX.Element {
               <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
             </Link>
           </div>
-          <HeaderNav />
+          { !disableNav && <HeaderNav />}
         </div>
       </div>
     </header>

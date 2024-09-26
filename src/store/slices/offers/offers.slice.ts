@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getNearbyOffersThunk, getOffersThunk, getOfferThunk } from './offers.thunks';
 import { OffersSlice } from './type';
-import { NameSpace } from '../../../const';
+import { FetchStatus, NameSpace } from '../../../const';
 import { Offer } from '../../../types/offer';
 
 const initialState: OffersSlice = {
@@ -9,7 +9,7 @@ const initialState: OffersSlice = {
   activeOffer: null,
   nearbyOffers: [],
 
-  isLoading: false
+  fetchStatus: FetchStatus.Idle
 };
 
 export const offersProcess = createSlice({
@@ -23,11 +23,14 @@ export const offersProcess = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getOffersThunk.pending, (state) => {
-        state.isLoading = true;
+        state.fetchStatus = FetchStatus.Pending;
       })
       .addCase(getOffersThunk.fulfilled, (state, action) => {
         state.offers = action.payload;
-        state.isLoading = false;
+        state.fetchStatus = FetchStatus.Fullfilled;
+      })
+      .addCase(getOffersThunk.rejected, (state) => {
+        state.fetchStatus = FetchStatus.Rejected;
       })
       .addCase(getOfferThunk.fulfilled, (state, action) => {
         state.activeOffer = action.payload;

@@ -6,7 +6,12 @@ export type User = {
   isPro: boolean;
 };
 
-export type UserAuth = User & {
+export type UserData = User & {
   email: string;
   token: Token;
+}
+
+export type UserLogIn = {
+  email: string;
+  password: string;
 }
