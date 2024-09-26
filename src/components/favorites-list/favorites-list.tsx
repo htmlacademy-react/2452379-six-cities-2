@@ -1,10 +1,11 @@
 import { useAppSelector } from '../../hooks';
+import { getOffers } from '../../store/slices/offers/offers.selectors';
 import { CityName } from '../../types/city';
 import { Offer } from '../../types/offer';
 import FavoritesItem from '../favorite-item/favorite-item';
 
 export default function FavoritesList() {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const cityOffers: Record<string, Offer[]> = {};
 
   offers.forEach((offer) => {

@@ -1,4 +1,4 @@
-import { Review } from '../../../types/review'
+import { Review } from '../../../types/review';
 
 export type ReviewsSlice = {
   reviews: Review[];
