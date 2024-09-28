@@ -1,5 +1,5 @@
 import { offerTypes } from '../../const';
-import { type Offer, OfferFull } from '../../types/offer';
+import { type Offer, OfferFull, OfferLocation } from '../../types/offer';
 import { Review } from '../../types/review';
 import Bookmark from '../bookmark/bookmark';
 import Map from '../map/map';
@@ -8,13 +8,19 @@ import StarsRating from '../stars-rating/stars-rating';
 
 type OfferProps = {
   offer: OfferFull;
-  nearOffers: Offer[];
+  offersNearby: Offer[];
   reviews: Review[];
 }
 
 const MAX_IMAGES_COUNT = 6;
+const ACTIVE_OFFER_ZOOM = 12;
 
-export default function Offer({ offer, reviews, nearOffers }: OfferProps): JSX.Element {
+export default function Offer({ offer, reviews, offersNearby }: OfferProps): JSX.Element {
+  const activeLocation = {
+    ...offer,
+    location: {...offer.location, zoom: ACTIVE_OFFER_ZOOM}
+  } as OfferLocation;
+
   return (
     <section className="offer">
       <div className="offer__gallery-container container">
@@ -55,7 +61,7 @@ export default function Offer({ offer, reviews, nearOffers }: OfferProps): JSX.E
             </li>
           </ul>
           <div className="offer__price">
-            <b className="offer__price-value">{offer?.price}</b>
+            <b className="offer__price-value">&euro;{offer?.price}</b>
             <span className="offer__price-text">&nbsp;night</span>
           </div>
           <div className="offer__inside">
@@ -93,7 +99,8 @@ export default function Offer({ offer, reviews, nearOffers }: OfferProps): JSX.E
       </div>
       <Map
         className="offer__map"
-        offers={[offer, ...nearOffers]}
+        activeLocation={activeLocation}
+        offers={[offer, ...offersNearby]}
         anchor={offer.location}
         mapOptions={{ dragging: false, scrollWheelZoom: false, zoomControl: false }}
       />

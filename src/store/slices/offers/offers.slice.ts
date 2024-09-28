@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getNearbyOffersThunk, getOffersThunk, getOfferThunk } from './offers.thunks';
+import { getOffersNearbyThunk, getOffersThunk, getOfferThunk } from './offers.thunks';
 import { OffersSlice } from './type';
 import { FetchStatus, NameSpace } from '../../../const';
 import { Offer } from '../../../types/offer';
@@ -35,7 +35,7 @@ export const offersProcess = createSlice({
       .addCase(getOfferThunk.fulfilled, (state, action) => {
         state.activeOffer = action.payload;
       })
-      .addCase(getNearbyOffersThunk.fulfilled, (state, action) => {
+      .addCase(getOffersNearbyThunk.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;
       });
   }

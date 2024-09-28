@@ -32,7 +32,7 @@ export const getOfferThunk =
     return data;
   });
 
-export const getNearbyOffersThunk =
+export const getOffersNearbyThunk =
   createAsyncThunk<
     Offer[],
     OfferId,

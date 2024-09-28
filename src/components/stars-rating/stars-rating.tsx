@@ -7,7 +7,7 @@ type StarsRatingProps = {
 };
 
 const MAX_RATING = 5;
-const calcRating = (value: number) => `${value * 100 / MAX_RATING}%`;
+const calcRating = (value: number) => `${Math.round(value) * 100 / MAX_RATING}%`;
 
 export default function StarsRating({ className, rating, showRatingValue = false }: StarsRatingProps): JSX.Element {
   return (

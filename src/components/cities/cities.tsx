@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import AvailableLocations from './available-locations/available-locations';
 import Places from '../places/places';
 import { getSortedCityOffers } from '../../store/slices/app/app.selectors';
-import { getOffersStatus } from '../../store/slices/offers/offers.selectors';
+import { getActiveOfferLocation, getOffersStatus } from '../../store/slices/offers/offers.selectors';
 import { setActiveOffer } from '../../store/slices/offers/offers.slice';
 import { Offer } from '../../types/offer';
 
@@ -13,6 +13,7 @@ export default function Cities(): JSX.Element {
   const dispatch = useAppDispatch();
   const { isLoading } = useAppSelector(getOffersStatus);
   const sortedCityOffers = useAppSelector(getSortedCityOffers);
+  const activeOfferLocation = useAppSelector(getActiveOfferLocation);
 
   const isEmpty = sortedCityOffers.length === 0;
 
@@ -31,6 +32,7 @@ export default function Cities(): JSX.Element {
                 <div className="cities__right-section">
                   <Map
                     className="cities__map"
+                    activeLocation={activeOfferLocation}
                     offers={sortedCityOffers}
                     anchor={sortedCityOffers[0].city.location}
                     mapOptions={{ zoomControl: false }}

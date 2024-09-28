@@ -5,11 +5,11 @@ import { useEffect, useRef } from 'react';
 import { OfferLocation } from '../../types/offer';
 import useMap from '../../hooks/useMap';
 import { MapData } from '../../types/common';
-import { useAppSelector } from '../../hooks';
-import { getActiveOfferLocation } from '../../store/slices/offers/offers.selectors';
 
 type MapProps = {
   className: string;
+
+  activeLocation: OfferLocation | null;
   offers: OfferLocation[];
   anchor: MapData;
   mapOptions?: leaflet.MapOptions;
@@ -32,8 +32,7 @@ const markerTypes = {
   },
 };
 
-export default function Map({ className, offers, anchor, mapOptions }: MapProps): JSX.Element {
-  const activeLocation = useAppSelector(getActiveOfferLocation);
+export default function Map({ className, activeLocation, offers, anchor, mapOptions }: MapProps): JSX.Element {
   const mapElementRef = useRef<HTMLDivElement>(null);
   const mapRef = useMap(mapElementRef, anchor, mapOptions);
 
