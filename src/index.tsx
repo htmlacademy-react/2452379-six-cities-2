@@ -5,6 +5,8 @@ import App from './components/app/app';
 import store from './store';
 import { getOffersThunk } from './store/slices/offers/offers.thunks';
 import { fetchAuthThunk } from './store/slices/user/user.thunks';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/ReactToastify.css';
 
 store.dispatch(getOffersThunk());
 store.dispatch(fetchAuthThunk());
@@ -16,6 +18,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ToastContainer />
       <App />
     </Provider>
   </React.StrictMode>

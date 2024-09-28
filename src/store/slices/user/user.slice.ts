@@ -36,6 +36,11 @@ export const userProcess = createSlice({
         state.authStatus = AuthorizationStatus.NoAuth;
         state.userData = null;
         removeToken();
+      })
+      .addCase(logOutThunk.rejected, (state) => {
+        state.authStatus = AuthorizationStatus.NoAuth;
+        state.userData = null;
+        removeToken();
       });
   }
 });

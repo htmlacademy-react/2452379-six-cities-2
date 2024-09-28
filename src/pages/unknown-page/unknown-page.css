@@ -40,6 +40,10 @@
   animation: spin 3s linear infinite;
 }
 
+:has(.page__main--404) header {
+  height: 100px;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

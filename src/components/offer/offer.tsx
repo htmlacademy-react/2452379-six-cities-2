@@ -94,7 +94,7 @@ export default function Offer({ offer, reviews, offersNearby }: OfferProps): JSX
               {offer.description}
             </div>
           </div>
-          {reviews.length > 0 && <ReviewsList reviews={reviews} />}
+          {<ReviewsList reviews={reviews} />}
         </div>
       </div>
       <Map

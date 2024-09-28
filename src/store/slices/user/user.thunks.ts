@@ -1,46 +1,58 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { UserData, UserLogIn } from '../../../types/user';
-import { AppDispatch, State, ThunksExtraArgument } from '../../type';
+import { ThunksOptions } from '../../type';
 import { ApiAction, ApiRoute, AppRoute } from '../../../const';
+import { AxiosError } from 'axios';
+import { StatusCodes } from 'http-status-codes';
+import { toast } from 'react-toastify';
+import { ValidationError } from '../../../types/errors';
 
 export const fetchAuthThunk = createAsyncThunk<
   UserData,
   undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: ThunksExtraArgument;
-  }
+  ThunksOptions
 >(ApiAction.fetchAuth, async (_, { extra: { api, router } }) => {
   const { data } = await api.get<UserData>(ApiRoute.Auth);
-  if (router.state.location.pathname === AppRoute.Login) {
-    router.navigate(AppRoute.Main);
+  try {
+    if (router.state.location.pathname === AppRoute.Login) {
+      router.navigate(AppRoute.Main);
+    }
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError){
+      if(error.response?.status !== StatusCodes.UNAUTHORIZED) {
+        toast.error(error.message);
+      }
+    }
+    throw error;
   }
-  return data;
 });
 
 export const logInThunk = createAsyncThunk<
   UserData,
   UserLogIn,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: ThunksExtraArgument;
-  }
+  ThunksOptions
 >(ApiAction.logIn, async (loginData, { extra: { api, router } }) => {
-  const { data } = await api.post<UserData>(ApiRoute.Auth, loginData);
-  router.navigate(AppRoute.Main);
-  return data;
+  try {
+    const { data } = await api.post<UserData>(ApiRoute.Auth, loginData);
+    router.navigate(AppRoute.Main);
+    return data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.response?.status === StatusCodes.BAD_REQUEST) {
+        toast.error((error.response.data as ValidationError).message);
+      } else {
+        toast.error(error.message);
+      }
+    }
+    throw error;
+  }
 });
 
 export const logOutThunk = createAsyncThunk<
   UserData,
   undefined,
-  {
-    dispatch: AppDispatch;
-    state: State;
-    extra: ThunksExtraArgument;
-  }
+  ThunksOptions
 >(ApiAction.logOut, async (_, { extra: { api, router } }) => {
   const { data } = await api.delete<UserData>(ApiRoute.Auth);
   router.navigate(AppRoute.Main);
