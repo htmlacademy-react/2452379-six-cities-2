@@ -3,8 +3,7 @@ import { Size } from '../../types/common';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postFavoriteOfferStatus } from '../../store/slices/offers/offers.thunks';
 import { OfferId } from '../../types/offer';
-import { getAuthStatus } from '../../store/slices/user/user.selectors';
-import { AuthorizationStatus } from '../../const';
+import { getIsAuthorized } from '../../store/slices/user/user.selectors';
 
 type BookmarkProps = {
   offerId: OfferId;
@@ -25,10 +24,10 @@ const iconSizes: { [key: string]: Size } = {
 
 export default function Bookmark({ offerId, className, isBookmarked }: BookmarkProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector(getAuthStatus);
+  const isAuthorized = useAppSelector(getIsAuthorized);
 
   const handleClick = () => {
-    if (authStatus === AuthorizationStatus.Auth) {
+    if (isAuthorized) {
       dispatch(postFavoriteOfferStatus({ offerId, status: !isBookmarked }));
     }
   };

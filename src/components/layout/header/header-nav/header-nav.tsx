@@ -1,19 +1,18 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../../../const';
+import { AppRoute } from '../../../../const';
 import { useAppSelector } from '../../../../hooks';
-import { getAuthStatus } from '../../../../store/slices/user/user.selectors';
+import { getIsAuthorized } from '../../../../store/slices/user/user.selectors';
 import User from '../../../user/user';
 
 
 function HeaderNav(): JSX.Element {
-  const authStatus = useAppSelector(getAuthStatus);
-  const isLoggedIn = authStatus === AuthorizationStatus.Auth;
+  const isAuthorized = useAppSelector(getIsAuthorized);
 
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
         {
-          isLoggedIn
+          isAuthorized
             ? (
               <>
                 <User />
