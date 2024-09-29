@@ -77,9 +77,9 @@ function PlaceCard({ offer, displayType, onCardMouseEnter, onCardMouseLeave }: P
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <Bookmark className="place-card" isBookmarked={offer.isFavorite} />
+          <Bookmark offerId={offer.id} className="place-card" isBookmarked={offer.isFavorite} />
         </div>
-        <StarsRating className="place-card" rating={offer.rating}/>
+        <StarsRating className="place-card" rating={offer.rating} />
         <h2 className="place-card__name">
           <Link to={generatePath(AppRoute.Offer, { id: offer.id })}>{offer.title}</Link>
         </h2>

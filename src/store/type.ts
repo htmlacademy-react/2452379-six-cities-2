@@ -9,3 +9,9 @@ export type ThunksExtraArgument = {
   api: AxiosInstance;
   router: ReturnType<typeof createBrowserRouter>;
 }
+
+export type ThunksOptions = {
+  dispatch: AppDispatch;
+  state: State;
+  extra: ThunksExtraArgument;
+};
