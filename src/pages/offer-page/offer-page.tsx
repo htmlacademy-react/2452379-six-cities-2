@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { isOfferFull } from '../../types/offer';
 import { getActiveOffer, getOffersNearby } from '../../store/slices/offers/offers.selectors';
 import { getOfferThunk, getOffersNearbyThunk } from '../../store/slices/offers/offers.thunks';
-import { getReviews } from '../../store/slices/reviews/reviews.selectors';
 import { getReviewsThunk } from '../../store/slices/reviews/reviews.thunks';
 
 const MAX_OFFERS_NEARBY_COUNT = 3;
@@ -16,7 +15,6 @@ function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const offer = useAppSelector(getActiveOffer);
   const nearbyOffers = useAppSelector(getOffersNearby).slice(0, MAX_OFFERS_NEARBY_COUNT);
-  const reviews = useAppSelector(getReviews);
   const offerId = useParams().id;
 
   useEffect(() => {
@@ -34,7 +32,7 @@ function OfferPage(): JSX.Element {
   return (
     <Layout>
       <main className="page__main page__main--offer">
-        {isOfferFull(offer) && <Offer offer={offer} offersNearby={nearbyOffers} reviews={reviews} />}
+        {isOfferFull(offer) && <Offer offer={offer} offersNearby={nearbyOffers} />}
         <div className="container">
           {nearbyOffers && <PlacesList offers={nearbyOffers} displayType='offer' />}
         </div>

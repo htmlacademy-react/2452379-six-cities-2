@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
 import { useAppDispatch } from '../../../hooks';
 import { postReviewThunk } from '../../../store/slices/reviews/reviews.thunks';
 import { useParams } from 'react-router-dom';
@@ -67,14 +67,14 @@ export default function CommentForm() {
             const result: JSX.Element[] = [];
             for (const key in ratingTitles) {
               result.push(
-                <>
+                <Fragment key={key}>
                   <input onChange={handleInputChange} className="form__rating-input visually-hidden" name="rating" value={key} id={`${key}-stars`} type="radio" />
                   <label htmlFor={`${key}-stars`} className="reviews__rating-label form__rating-label" title={ratingTitles[key]}>
                     <svg className="form__star-image" width="37" height="33">
                       <use xlinkHref="#icon-star"></use>
                     </svg>
                   </label>
-                </>
+                </Fragment>
               );
             }
             return result.reverse();

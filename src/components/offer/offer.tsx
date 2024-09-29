@@ -1,6 +1,5 @@
 import { offerTypes } from '../../const';
 import { type Offer, OfferFull, OfferLocation } from '../../types/offer';
-import { Review } from '../../types/review';
 import Bookmark from '../bookmark/bookmark';
 import Map from '../map/map';
 import ReviewsList from '../reviews-list/reviews-list';
@@ -9,16 +8,15 @@ import StarsRating from '../stars-rating/stars-rating';
 type OfferProps = {
   offer: OfferFull;
   offersNearby: Offer[];
-  reviews: Review[];
 }
 
 const MAX_IMAGES_COUNT = 6;
 const ACTIVE_OFFER_ZOOM = 12;
 
-export default function Offer({ offer, reviews, offersNearby }: OfferProps): JSX.Element {
+export default function Offer({ offer, offersNearby }: OfferProps): JSX.Element {
   const activeLocation = {
     ...offer,
-    location: {...offer.location, zoom: ACTIVE_OFFER_ZOOM}
+    location: { ...offer.location, zoom: ACTIVE_OFFER_ZOOM }
   } as OfferLocation;
 
   return (
@@ -46,7 +44,7 @@ export default function Offer({ offer, reviews, offersNearby }: OfferProps): JSX
             <h1 className="offer__name">
               {offer?.title}
             </h1>
-            <Bookmark className="offer" isBookmarked={offer.isFavorite} />
+            <Bookmark offerId={offer.id} className="offer" isBookmarked={offer.isFavorite} />
           </div>
           <StarsRating className="offer" rating={offer.rating} showRatingValue />
           <ul className="offer__features">
@@ -94,7 +92,7 @@ export default function Offer({ offer, reviews, offersNearby }: OfferProps): JSX
               {offer.description}
             </div>
           </div>
-          {<ReviewsList reviews={reviews} />}
+          {<ReviewsList />}
         </div>
       </div>
       <Map

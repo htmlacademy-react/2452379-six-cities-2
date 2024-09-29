@@ -1,16 +1,13 @@
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getReviews } from '../../store/slices/reviews/reviews.selectors';
 import { getAuthStatus } from '../../store/slices/user/user.selectors';
-import { Review } from '../../types/review';
 import CommentForm from './comment-form/comment-form';
 import ReviewItem from './review-item/review-item';
 
-type ReviewsListProps = {
-  reviews: Review[];
-}
-
-export default function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
+export default function ReviewsList(): JSX.Element {
   const authStatus = useAppSelector(getAuthStatus);
+  const reviews = useAppSelector(getReviews);
 
   return (
     <section className="offer__reviews reviews">

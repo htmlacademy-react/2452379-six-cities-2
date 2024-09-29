@@ -6,21 +6,26 @@ import { AxiosError } from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
 import { ValidationError } from '../../../types/errors';
+import { getFavoriteOffersThunk } from '../offers/offers.thunks';
 
 export const fetchAuthThunk = createAsyncThunk<
   UserData,
   undefined,
   ThunksOptions
->(ApiAction.fetchAuth, async (_, { extra: { api, router } }) => {
-  const { data } = await api.get<UserData>(ApiRoute.Auth);
+>(ApiAction.fetchAuth, async (_, { dispatch, extra: { api, router } }) => {
   try {
+    const { data } = await api.get<UserData>(ApiRoute.Auth);
+
     if (router.state.location.pathname === AppRoute.Login) {
       router.navigate(AppRoute.Main);
     }
+
+    dispatch(getFavoriteOffersThunk());
+
     return data;
   } catch (error) {
-    if (error instanceof AxiosError){
-      if(error.response?.status !== StatusCodes.UNAUTHORIZED) {
+    if (error instanceof AxiosError) {
+      if (error.response?.status !== StatusCodes.UNAUTHORIZED) {
         toast.error(error.message);
       }
     }

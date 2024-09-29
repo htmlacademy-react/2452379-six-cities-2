@@ -18,6 +18,8 @@ export enum ApiRoute {
   Offers = '/offers',
   OfferById = '/offers/:offerId',
   OffersNearby = '/offers/:offerId/nearby',
+  favoriteOffers = '/favorite',
+  favoriteOfferStatus = '/favorite/:offerId/:status',
   Reviews = '/comments/:offerId',
   Auth = '/login'
 }
@@ -29,6 +31,8 @@ export enum ApiAction {
   getOffer = 'OFFERS/getOffer',
   getOffers = 'OFFERS/getOffers',
   getOffersNearby = 'OFFERS/getOffersNearby',
+  getFavoriteOffers = 'OFFERS/getFavoriteOffers',
+  postFavoriteOfferStatus = 'OFFERS/postFavoriteOfferStatus',
   getReviews = 'REVIEWS/getReviews',
   postReview = 'REVIEWS/postReview',
 }
