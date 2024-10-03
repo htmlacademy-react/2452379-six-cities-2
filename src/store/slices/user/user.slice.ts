@@ -20,28 +20,33 @@ export const userProcess = createSlice({
         state.fetchStatus = FetchStatus.Pending;
       })
       .addCase(fetchAuthThunk.fulfilled, (state, action: PayloadAction<UserData>) => {
-        state.authStatus = AuthorizationStatus.Auth;
         state.userData = action.payload;
+        state.authStatus = AuthorizationStatus.Auth;
         state.fetchStatus = FetchStatus.Fullfilled;
       })
       .addCase(fetchAuthThunk.rejected, (state) => {
-        state.fetchStatus = FetchStatus.Rejected;
         state.authStatus = AuthorizationStatus.NoAuth;
+        state.fetchStatus = FetchStatus.Rejected;
+      })
+      .addCase(logInThunk.pending, (state) => {
+        state.fetchStatus = FetchStatus.Pending;
       })
       .addCase(logInThunk.fulfilled, (state, action: PayloadAction<UserData>) => {
-        state.authStatus = AuthorizationStatus.Auth;
         state.userData = action.payload;
+        state.authStatus = AuthorizationStatus.Auth;
+        state.fetchStatus = FetchStatus.Fullfilled;
       })
       .addCase(logInThunk.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
+        state.fetchStatus = FetchStatus.Rejected;
       })
       .addCase(logOutThunk.fulfilled, (state) => {
-        state.authStatus = AuthorizationStatus.NoAuth;
         state.userData = null;
+        state.authStatus = AuthorizationStatus.NoAuth;
       })
       .addCase(logOutThunk.rejected, (state) => {
-        state.authStatus = AuthorizationStatus.NoAuth;
         state.userData = null;
+        state.authStatus = AuthorizationStatus.NoAuth;
       });
   }
 });

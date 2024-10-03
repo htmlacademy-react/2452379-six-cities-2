@@ -1,6 +1,6 @@
 import { State } from '../../type';
 import { FetchStatus, NameSpace } from '../../../const';
-import { OfferLocation } from '../../../types/offer';
+import { OfferId, OfferLocation } from '../../../types/offer';
 
 
 type OffersState = Pick<State, NameSpace.Offers>;
@@ -22,3 +22,4 @@ export const getOffersStateFetchStatusOf = (prop: OffersStateFetchStatuses) => (
     isEmpty: fetchStatus === FetchStatus.Fullfilled && offers.length === 0
   };
 };
+export const isOfferFavorite = (id: OfferId) => ({ OFFERS }: OffersState) => !!OFFERS.favoriteOffers.find(({ id: favoriteOfferId }) => favoriteOfferId === id);

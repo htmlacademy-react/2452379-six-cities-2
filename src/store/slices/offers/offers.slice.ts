@@ -51,23 +51,10 @@ export const offersProcess = createSlice({
         state.favoriteOffersFetchStatus = FetchStatus.Rejected;
       })
       .addCase(postFavoriteOfferStatus.fulfilled, (state, action) => {
-        const offerIndex = state.offers.findIndex(({ id }) => id === action.payload.id);
-        if (offerIndex !== -1) {
-          state.offers[offerIndex].isFavorite = action.payload.isFavorite;
-        }
-        if (state.activeOffer?.id === action.payload.id) {
-          state.activeOffer.isFavorite = action.payload.isFavorite;
-        }
         if (action.payload.isFavorite) {
           state.favoriteOffers.push(action.payload);
         } else {
-          const favoriteOfferIndex = state.favoriteOffers.findIndex(({ id }) => id === action.payload.id);
-          if (favoriteOfferIndex !== -1) {
-            state.favoriteOffers = [
-              ...state.favoriteOffers.slice(0, favoriteOfferIndex),
-              ...state.favoriteOffers.slice(favoriteOfferIndex + 1, state.favoriteOffers.length)
-            ];
-          }
+          state.favoriteOffers = state.favoriteOffers.filter(({ id }) => id !== action.payload.id);
         }
         state.offersFetchStatus = FetchStatus.Fullfilled;
       })

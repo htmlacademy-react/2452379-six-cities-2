@@ -4,11 +4,12 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postFavoriteOfferStatus } from '../../store/slices/offers/offers.thunks';
 import { OfferId } from '../../types/offer';
 import { getIsAuthorized } from '../../store/slices/user/user.selectors';
+import { isOfferFavorite } from '../../store/slices/offers/offers.selectors';
+import { toast } from 'react-toastify';
 
 type BookmarkProps = {
   offerId: OfferId;
   className: string;
-  isBookmarked: boolean;
 }
 
 const iconSizes: { [key: string]: Size } = {
@@ -22,19 +23,22 @@ const iconSizes: { [key: string]: Size } = {
   }
 };
 
-export default function Bookmark({ offerId, className, isBookmarked }: BookmarkProps): JSX.Element {
+export default function Bookmark({ offerId, className }: BookmarkProps): JSX.Element {
   const dispatch = useAppDispatch();
   const isAuthorized = useAppSelector(getIsAuthorized);
+  const isBookmarked = useAppSelector(isOfferFavorite(offerId));
 
   const handleClick = () => {
     if (isAuthorized) {
       dispatch(postFavoriteOfferStatus({ offerId, status: !isBookmarked }));
+    } else {
+      toast.info('Authorization requires');
     }
   };
 
   return (
     <button
-      className={clsx('button', `${className}__bookmark-button`, isBookmarked && `${className}__bookmark-button--active`)}
+      className={clsx('button', `${className}__bookmark-button`, isAuthorized && isBookmarked && `${className}__bookmark-button--active`)}
       onClick={handleClick}
       type="button"
     >
