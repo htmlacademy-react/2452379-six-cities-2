@@ -3,6 +3,7 @@ import Layout from '../../components/layout/layout';
 import { useAppDispatch } from '../../hooks';
 import { logInThunk } from '../../store/slices/user/user.thunks';
 import { UserLogIn } from '../../types/user';
+import { toast } from 'react-toastify';
 
 const isValid = ({ email, password }: UserLogIn) =>
   email.match(/^\S+@\S+\.\S+$/) && password.match(/(?=.*[A-Za-z])(?=.*\d).+/);
@@ -17,6 +18,8 @@ function LoginPage(): JSX.Element {
 
     if (isValid({ email, password })) {
       dispatch(logInThunk({ email, password }));
+    } else {
+      toast.info('Invalid login or password');
     }
   };
 

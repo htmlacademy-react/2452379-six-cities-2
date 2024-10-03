@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus, FetchStatus, NameSpace } from '../../../const';
-import { removeToken, saveToken } from '../../../services/token';
 import { UserData } from '../../../types/user';
 import { UserSlice } from './type';
 import { fetchAuthThunk, logInThunk, logOutThunk } from './user.thunks';
@@ -24,7 +23,6 @@ export const userProcess = createSlice({
         state.authStatus = AuthorizationStatus.Auth;
         state.userData = action.payload;
         state.fetchStatus = FetchStatus.Fullfilled;
-        saveToken(action.payload.token);
       })
       .addCase(fetchAuthThunk.rejected, (state) => {
         state.fetchStatus = FetchStatus.Rejected;
@@ -33,7 +31,6 @@ export const userProcess = createSlice({
       .addCase(logInThunk.fulfilled, (state, action: PayloadAction<UserData>) => {
         state.authStatus = AuthorizationStatus.Auth;
         state.userData = action.payload;
-        saveToken(action.payload.token);
       })
       .addCase(logInThunk.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
@@ -41,12 +38,10 @@ export const userProcess = createSlice({
       .addCase(logOutThunk.fulfilled, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
         state.userData = null;
-        removeToken();
       })
       .addCase(logOutThunk.rejected, (state) => {
         state.authStatus = AuthorizationStatus.NoAuth;
         state.userData = null;
-        removeToken();
       });
   }
 });
