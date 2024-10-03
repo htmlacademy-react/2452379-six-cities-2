@@ -31,6 +31,11 @@ export type OfferDetails = {
   description: string;
 }
 
+export type FavoriteOfferStatus = {
+  offerId: OfferId;
+  status: boolean;
+}
+
 export type OfferFull = Omit<Offer, 'previewImage'> & OfferDetails;
 
 export function isOfferFull(offer: Offer | OfferFull | null): offer is OfferFull {

@@ -1,24 +1,28 @@
-import FavoritesList from '../../components/favorites-list/favorites-list';
+import Favorites from '../../components/favorites/favorites';
 import Layout from '../../components/layout/layout';
+import Loading, { LoadingProps } from '../../components/loading/loading';
+import { useAppSelector } from '../../hooks';
+import { getOffersStateFetchStatusOf } from '../../store/slices/offers/offers.selectors';
 
-function FavoritesPage(): JSX.Element {
+const loadingProps: LoadingProps = {
+  mainColor: '#4d81af',
+  secondaryColor: '#f0f0f0',
+  speed: 100,
+  still: false,
+  thickness: 100,
+  svgProps: {}
+};
+
+export default function FavoritesPage(): JSX.Element {
+  const { isLoading } = useAppSelector(getOffersStateFetchStatusOf('favoriteOffers'));
+
   return (
-    <Layout>
-      <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <FavoritesList />
-          </section>
-        </div>
-      </main>
-      <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
-        </a>
-      </footer>
+    <Layout footer>
+      {
+        isLoading
+          ? <Loading {...loadingProps} />
+          : <Favorites />
+      }
     </Layout>
   );
 }
-
-export default FavoritesPage;

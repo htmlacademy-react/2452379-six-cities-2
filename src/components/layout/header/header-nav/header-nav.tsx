@@ -1,39 +1,25 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../../../const';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import { getAuthStatus, getUserEmail } from '../../../../store/slices/user/user.selectors';
-import { logOutThunk } from '../../../../store/slices/user/user.thunks';
+import { AppRoute } from '../../../../const';
+import { useAppSelector } from '../../../../hooks';
+import { getIsAuthorized } from '../../../../store/slices/user/user.selectors';
+import User from '../../../user/user';
+
 
 function HeaderNav(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const authStatus = useAppSelector(getAuthStatus);
-  const email = useAppSelector(getUserEmail);
-
-  const isLoggedIn = authStatus === AuthorizationStatus.Auth;
-
-  const handleSignOutClick = () => {
-    dispatch(logOutThunk());
-  };
+  const isAuthorized = useAppSelector(getIsAuthorized);
 
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
         {
-          isLoggedIn
+          isAuthorized
             ? (
               <>
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">{email}</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li onClick={handleSignOutClick} className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                <User />
+                <li className="header__nav-item">
+                  <Link className="header__nav-link" to={AppRoute.LogOut}>
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>
               </>
             )

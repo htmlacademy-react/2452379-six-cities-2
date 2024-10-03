@@ -1,12 +1,17 @@
 import clsx from 'clsx';
 import { Size } from '../../types/common';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { postFavoriteOfferStatus } from '../../store/slices/offers/offers.thunks';
+import { OfferId } from '../../types/offer';
+import { getIsAuthorized } from '../../store/slices/user/user.selectors';
 
 type BookmarkProps = {
+  offerId: OfferId;
   className: string;
   isBookmarked: boolean;
 }
 
-const iconSizes: {[key: string]: Size} = {
+const iconSizes: { [key: string]: Size } = {
   default: {
     width: 18,
     height: 19
@@ -17,10 +22,22 @@ const iconSizes: {[key: string]: Size} = {
   }
 };
 
-export default function Bookmark({ className, isBookmarked }: BookmarkProps): JSX.Element {
+export default function Bookmark({ offerId, className, isBookmarked }: BookmarkProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const isAuthorized = useAppSelector(getIsAuthorized);
+
+  const handleClick = () => {
+    if (isAuthorized) {
+      dispatch(postFavoriteOfferStatus({ offerId, status: !isBookmarked }));
+    }
+  };
 
   return (
-    <button className={clsx('button', `${className}__bookmark-button`, isBookmarked && `${className}--active`)} type="button">
+    <button
+      className={clsx('button', `${className}__bookmark-button`, isBookmarked && `${className}__bookmark-button--active`)}
+      onClick={handleClick}
+      type="button"
+    >
       <svg
         className={`${className}__bookmark-icon`}
         width={iconSizes[className]?.width || iconSizes['default'].width}

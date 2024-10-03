@@ -3,9 +3,11 @@ import FavoritesPage from '../pages/favorites-page/favorites-page';
 import LoginPage from '../pages/login-page/login-page';
 import OfferPage from '../pages/offer-page/offer-page';
 import { createBrowserRouter } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../const';
+import { AppRoute } from '../const';
 import UnknownPage from '../pages/unknown-page/unknown-page';
 import PrivateRoute from '../components/private-route/private-route';
+import WithLogOutThunk from '../HOC/withLogOutThunk';
+import LogOutPage from '../pages/logout-page/logout-page';
 
 const createRouter = () => createBrowserRouter([
   {
@@ -18,7 +20,7 @@ const createRouter = () => createBrowserRouter([
       {
         path: AppRoute.Favorites,
         element:
-          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} >
+          <PrivateRoute >
             <FavoritesPage />
           </PrivateRoute>,
       },
@@ -31,7 +33,14 @@ const createRouter = () => createBrowserRouter([
         element: <OfferPage />
       },
       {
-        path: '*',
+        path: AppRoute.LogOut,
+        element:
+          <WithLogOutThunk>
+            <LogOutPage />
+          </WithLogOutThunk>
+      },
+      {
+        path: AppRoute.Unknown,
         element: <UnknownPage />
       }
     ]

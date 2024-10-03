@@ -1,0 +1,85 @@
+/*
+.cities__status-wrapper {
+  margin-top: 0;
+}
+
+.cities {
+  display: block;
+  text-align: center;
+}
+  адекватный вариант, если что
+*/
+
+
+@media (max-width: 480px) {
+  .page__main--404 span {
+    font-size: 120px;
+  }
+
+  .page__main--404 .cities__status-wrapper {
+    padding: 5px;
+    font-size: 1em;
+  }
+
+  .page__main--404 .cities {
+    border-width: 1px;
+  }
+}
+
+.page__main--404 .cities {
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  background-color: limegreen;
+  border: 5px dashed red;
+}
+
+:has(.page__main--404) span {
+  font-size: 20vw;
+  color: magenta;
+  animation: spin 3s linear infinite;
+}
+
+:has(.page__main--404) header {
+  height: 100px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.page__main--404 .cities__status-wrapper {
+  margin-top: 20px;
+  background-color: yellow;
+  padding: 20px;
+  font-size: 5vw;
+  color: blue;
+  text-shadow: 3px 3px red;
+  transform: skew(10deg, 10deg);
+}
+
+.page__main--404 h2 {
+  font-family: 'Comic Sans MS', cursive;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .page__main--404 span {
+    font-size: 200px;
+  }
+
+  .page__main--404 .cities__status-wrapper {
+    padding: 10px;
+    font-size: 1.2em;
+  }
+
+  .page__main--404 .cities {
+    border-width: 2px;
+  }
+}
