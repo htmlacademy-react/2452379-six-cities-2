@@ -10,7 +10,7 @@ const initialState: UserSlice = {
   fetchStatus: FetchStatus.Idle
 };
 
-export const userProcess = createSlice({
+export const userSlice = createSlice({
   name: NameSpace.User,
   initialState,
   reducers: { },
@@ -50,5 +50,3 @@ export const userProcess = createSlice({
       });
   }
 });
-
-// export const {  } = userProcess.actions;

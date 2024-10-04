@@ -3,7 +3,7 @@ import { NameSpace } from '../../../const';
 import { AppSlice } from './type';
 import { getCity, getSortType } from './app.selectors';
 
-describe('App Slice selectors', () => {
+describe('App Selectors', () => {
   const state = {
     [NameSpace.App]: {
       city: 'Dusseldorf',

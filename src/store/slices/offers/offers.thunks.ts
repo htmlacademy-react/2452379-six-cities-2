@@ -85,7 +85,7 @@ export const getOffersNearbyThunk =
     }
   });
 
-export const postFavoriteOfferStatus =
+export const postFavoriteOfferStatusThunk =
   createAsyncThunk<
     Offer,
     FavoriteOfferStatus,

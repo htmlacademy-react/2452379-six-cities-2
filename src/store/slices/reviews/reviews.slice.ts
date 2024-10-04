@@ -8,7 +8,7 @@ const initialState: ReviewsSlice = {
   postStatus: FetchStatus.Idle
 };
 
-export const reviewsProcess = createSlice({
+export const reviewsSlice = createSlice({
   name: NameSpace.Reviews,
   initialState,
   reducers: {},

@@ -1,12 +1,18 @@
-import { Offer } from '../types/offer';
+import { Offer, OfferFull } from '../types/offer';
 import { datatype, commerce, image, address, lorem, internet } from 'faker';
 import { Review } from '../types/review';
-import { User } from '../types/user';
+import { User, UserData } from '../types/user';
 
 export const createFakeUser = (): User => ({
   name: internet.userName(),
   avatarUrl: internet.avatar(),
   isPro: datatype.boolean()
+});
+
+export const createFakeUserData = (): UserData => ({
+  ...createFakeUser(),
+  email: internet.email(),
+  token: datatype.string(10)
 });
 
 export const createFakeOffer = (): Offer => ({
@@ -31,6 +37,16 @@ export const createFakeOffer = (): Offer => ({
   },
   isFavorite: datatype.boolean(),
   isPremium: datatype.boolean()
+});
+
+export const createFakeFullOffer = (): OfferFull => ({
+  ...createFakeOffer(),
+  bedrooms: datatype.number(5),
+  maxAdults: datatype.number(5),
+  host: createFakeUser(),
+  goods: lorem.words(5).split(' '),
+  images: [ image.dataUri(), image.dataUri()],
+  description: lorem.sentences(5)
 });
 
 export const createFakeOffers = (length: number): Offer[] =>

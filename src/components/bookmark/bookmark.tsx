@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { Size } from '../../types/common';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { postFavoriteOfferStatus } from '../../store/slices/offers/offers.thunks';
+import { postFavoriteOfferStatusThunk } from '../../store/slices/offers/offers.thunks';
 import { OfferId } from '../../types/offer';
 import { getIsAuthorized } from '../../store/slices/user/user.selectors';
 import { isOfferFavorite } from '../../store/slices/offers/offers.selectors';
@@ -30,7 +30,7 @@ export default function Bookmark({ offerId, className }: BookmarkProps): JSX.Ele
 
   const handleClick = () => {
     if (isAuthorized) {
-      dispatch(postFavoriteOfferStatus({ offerId, status: !isBookmarked }));
+      dispatch(postFavoriteOfferStatusThunk({ offerId, status: !isBookmarked }));
     } else {
       toast.info('Authorization requires');
     }

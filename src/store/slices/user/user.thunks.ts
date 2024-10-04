@@ -61,13 +61,11 @@ export const logInThunk = createAsyncThunk<
 });
 
 export const logOutThunk = createAsyncThunk<
-  UserData,
+  void,
   undefined,
   ThunksOptions
 >(ApiAction.logOut, async (_, { extra: { api, router } }) => {
   removeToken();
-
-  const { data } = await api.delete<UserData>(ApiRoute.Auth);
+  await api.delete(ApiRoute.Auth);
   router.navigate(AppRoute.Main);
-  return data;
 });

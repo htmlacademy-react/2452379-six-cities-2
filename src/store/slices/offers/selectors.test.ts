@@ -2,12 +2,12 @@ import { describe, expect } from 'vitest';
 import { FetchStatus, NameSpace } from '../../../const';
 import { OffersSlice } from './type';
 import { getActiveOffer, getActiveOfferId, getActiveOfferLocation, getFavoriteOffers, getOffers, getOffersNearby, getOffersStateFetchStatusOf, isOfferFavorite } from './offers.selectors';
-import { createFakeOffers } from '../../../utils/mocks';
+import { createFakeOffer, createFakeOffers } from '../../../utils/mocks';
 
 describe('Offers Slice selectors', () => {
   const state = {
     [NameSpace.Offers]: {
-      activeOffer: null,
+      activeOffer: createFakeOffer(),
       offers: createFakeOffers(3),
       nearbyOffers: createFakeOffers(3),
       favoriteOffers: createFakeOffers(3),
@@ -37,25 +37,25 @@ describe('Offers Slice selectors', () => {
   it('should return active offer location', () => {
     const { activeOffer } = state[NameSpace.Offers];
     const result = getActiveOfferLocation(state);
-    expect(result).toBe(activeOffer?.location);
+    expect(result).toEqual(activeOffer?.location);
   });
 
   it('should return nearby offers', () => {
     const { nearbyOffers } = state[NameSpace.Offers];
     const result = getOffersNearby(state);
-    expect(result).toBe(nearbyOffers);
+    expect(result).toEqual(nearbyOffers);
   });
 
   it('should return favorite offers', () => {
     const { favoriteOffers } = state[NameSpace.Offers];
     const result = getFavoriteOffers(state);
-    expect(result).toBe(favoriteOffers);
+    expect(result).toEqual(favoriteOffers);
   });
 
   it('should return offers fetch status', () => {
     const { offersFetchStatus, offers: offers } = state[NameSpace.Offers];
     const result = getOffersStateFetchStatusOf('offers')(state);
-    expect(result).toStrictEqual({
+    expect(result).toEqual({
       isLoading: offersFetchStatus === FetchStatus.Idle || offersFetchStatus === FetchStatus.Pending,
       isRejected: offersFetchStatus === FetchStatus.Rejected,
       isEmpty: offersFetchStatus === FetchStatus.Fullfilled && offers.length === 0

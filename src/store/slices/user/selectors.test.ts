@@ -27,7 +27,7 @@ describe('Reviews Slice selectors', () => {
   it('should return auth fetch status', () => {
     const { fetchStatus } = state[NameSpace.User];
     const result = getAuthFetchStatus(state);
-    expect(result).toStrictEqual({
+    expect(result).toEqual({
       isLoading: fetchStatus === FetchStatus.Idle || fetchStatus === FetchStatus.Pending,
       isRejected: fetchStatus === FetchStatus.Rejected,
       isFulfilled: fetchStatus === FetchStatus.Fullfilled

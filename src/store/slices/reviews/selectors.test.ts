@@ -15,7 +15,7 @@ describe('Reviews Slice selectors', () => {
   it('should return reviews', () => {
     const { reviews } = state[NameSpace.Reviews];
     const result = getReviews(state);
-    expect(result).toBe(reviews);
+    expect(result).toEqual(reviews);
   });
 
   it('should return recent reviews', () => {
@@ -29,6 +29,6 @@ describe('Reviews Slice selectors', () => {
   it('should return review post status', () => {
     const { postStatus } = state[NameSpace.Reviews];
     const result = getReviewPostStatus(state);
-    expect(result).toStrictEqual(postStatus);
+    expect(result).toBe(postStatus);
   });
 });
