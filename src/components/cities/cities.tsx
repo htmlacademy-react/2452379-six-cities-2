@@ -3,14 +3,12 @@ import CitiesEmpty from './cities-empty/cities-empty';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Places from '../places/places';
 import { getSortedCityOffers } from '../../store/slices/app/app.selectors';
-import { getActiveOfferLocation } from '../../store/slices/offers/offers.selectors';
 import { setActiveOffer } from '../../store/slices/offers/offers.slice';
 import { Offer } from '../../types/offer';
 
 export default function Cities(): JSX.Element {
   const dispatch = useAppDispatch();
   const sortedCityOffers = useAppSelector(getSortedCityOffers);
-  const activeOfferLocation = useAppSelector(getActiveOfferLocation);
 
   const isEmpty = sortedCityOffers.length === 0;
 
@@ -27,7 +25,6 @@ export default function Cities(): JSX.Element {
               <div className="cities__right-section">
                 <Map
                   className="cities__map"
-                  activeLocation={activeOfferLocation}
                   offers={sortedCityOffers}
                   anchor={sortedCityOffers[0].city.location}
                   mapOptions={{ zoomControl: false }}

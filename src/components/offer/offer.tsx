@@ -1,5 +1,5 @@
 import { offerTypes } from '../../const';
-import { type Offer, OfferFull, OfferLocation } from '../../types/offer';
+import { type Offer, OfferFull } from '../../types/offer';
 import Bookmark from '../bookmark/bookmark';
 import Map from '../map/map';
 import ReviewsList from '../reviews-list/reviews-list';
@@ -14,11 +14,6 @@ const MAX_IMAGES_COUNT = 6;
 const ACTIVE_OFFER_ZOOM = 12;
 
 export default function Offer({ offer, offersNearby }: OfferProps): JSX.Element {
-  const activeLocation = {
-    ...offer,
-    location: { ...offer.location, zoom: ACTIVE_OFFER_ZOOM }
-  } as OfferLocation;
-
   return (
     <section className="offer">
       <div className="offer__gallery-container container">
@@ -44,7 +39,7 @@ export default function Offer({ offer, offersNearby }: OfferProps): JSX.Element 
             <h1 className="offer__name">
               {offer?.title}
             </h1>
-            <Bookmark offerId={offer.id} className="offer" isBookmarked={offer.isFavorite} />
+            <Bookmark offerId={offer.id} className="offer" />
           </div>
           <StarsRating className="offer" rating={offer.rating} showRatingValue />
           <ul className="offer__features">
@@ -97,9 +92,8 @@ export default function Offer({ offer, offersNearby }: OfferProps): JSX.Element 
       </div>
       <Map
         className="offer__map"
-        activeLocation={activeLocation}
-        offers={[offer, ...offersNearby]}
-        anchor={offer.location}
+        offers={offersNearby}
+        anchor={{ ...offer.location, zoom: ACTIVE_OFFER_ZOOM, isActiveLocation: true }}
         mapOptions={{ dragging: false, scrollWheelZoom: false, zoomControl: false }}
       />
     </section>
