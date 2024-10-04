@@ -5,6 +5,7 @@ import Places from '../places/places';
 import { getSortedCityOffers } from '../../store/slices/app/app.selectors';
 import { setActiveOffer } from '../../store/slices/offers/offers.slice';
 import { Offer } from '../../types/offer';
+import { useCallback } from 'react';
 
 export default function Cities(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -12,7 +13,7 @@ export default function Cities(): JSX.Element {
 
   const isEmpty = sortedCityOffers.length === 0;
 
-  const handleActivePlaceChange = (activeOffer: Offer | null) => dispatch(setActiveOffer(activeOffer));
+  const handleActivePlaceChange = useCallback((activeOffer: Offer | null) => dispatch(setActiveOffer(activeOffer)), [dispatch]);
 
   return (
     <div className="cities">

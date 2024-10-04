@@ -29,11 +29,7 @@ export default function Bookmark({ offerId, className }: BookmarkProps): JSX.Ele
   const isBookmarked = useAppSelector(isOfferFavorite(offerId));
 
   const handleClick = () => {
-    if (isAuthorized) {
-      dispatch(postFavoriteOfferStatusThunk({ offerId, status: !isBookmarked }));
-    } else {
-      toast.info('Authorization requires');
-    }
+    dispatch(postFavoriteOfferStatusThunk({ offerId, status: !isBookmarked }));
   };
 
   return (

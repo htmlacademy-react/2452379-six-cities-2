@@ -79,6 +79,8 @@ export const getOffersNearbyThunk =
       if (error instanceof AxiosError) {
         if (error.response?.status === StatusCodes.NOT_FOUND) {
           toast.error((error.response.data as NotFoundError).message);
+        } else {
+          toast.error(error.message);
         }
         throw error;
       }
@@ -90,7 +92,7 @@ export const postFavoriteOfferStatusThunk =
     Offer,
     FavoriteOfferStatus,
     ThunksOptions
-  >(ApiAction.postFavoriteOfferStatus, async ({ offerId, status }, { extra: { api } }) => {
+  >(ApiAction.postFavoriteOfferStatus, async ({ offerId, status }, { extra: { router, api } }) => {
     try {
       const { data } = await api.post<Offer>(generatePath(ApiRoute.favoriteOfferStatus, { offerId, status: `${+status}` }));
       return data;
@@ -102,6 +104,7 @@ export const postFavoriteOfferStatusThunk =
             break;
           case StatusCodes.UNAUTHORIZED:
             toast.error((error.response.data as AuthorizationError).message);
+            router.navigate(AppRoute.Login);
             break;
           case StatusCodes.BAD_REQUEST:
             toast.error((error.response.data as ValidationError).message);
@@ -109,8 +112,11 @@ export const postFavoriteOfferStatusThunk =
           case StatusCodes.CONFLICT:
             toast.error((error.response.data as ConflictError).message);
             break;
+          default:
+            toast.error(error.message);
+            break;
         }
-        throw error;
       }
+      throw error;
     }
   });
