@@ -5,13 +5,14 @@ import { useEffect, useRef } from 'react';
 import { OfferLocation } from '../../types/offer';
 import useMap from '../../hooks/useMap';
 import { MapData } from '../../types/common';
+import { useAppSelector } from '../../hooks';
+import { getActiveOfferLocation } from '../../store/slices/offers/offers.selectors';
 
 type MapProps = {
   className: string;
 
-  activeLocation: OfferLocation | null;
   offers: OfferLocation[];
-  anchor: MapData;
+  anchor: MapData & { isActiveLocation?: boolean };
   mapOptions?: leaflet.MapOptions;
 }
 
@@ -32,25 +33,33 @@ const markerTypes = {
   },
 };
 
-export default function Map({ className, activeLocation, offers, anchor, mapOptions }: MapProps): JSX.Element {
+export default function Map({ className, offers, anchor, mapOptions }: MapProps): JSX.Element {
   const mapElementRef = useRef<HTMLDivElement>(null);
   const mapRef = useMap(mapElementRef, anchor, mapOptions);
+  const activeOfferLocation = useAppSelector(getActiveOfferLocation);
+  const activeLocation = anchor.isActiveLocation ? anchor : activeOfferLocation;
 
   useEffect(() => {
     const markerLayer = new leaflet.LayerGroup();
     offers
-      ?.forEach(({ id, location }) => {
+      ?.forEach(({ location }) => {
         leaflet
-          .marker({ lat: location.latitude, lng: location.longitude }, id === activeLocation?.id ? markerTypes.active : markerTypes.default)
+          .marker({ lat: location.latitude, lng: location.longitude }, markerTypes.default)
           .addTo(markerLayer);
       });
+
+    if (activeLocation) {
+      leaflet
+        .marker({ lat: activeLocation.latitude, lng: activeLocation.longitude }, markerTypes.active)
+        .addTo(markerLayer);
+    }
 
     mapRef.current?.addLayer(markerLayer);
 
     mapRef.current?.flyTo({
-      lat: activeLocation?.location.latitude || anchor.latitude,
-      lng: activeLocation?.location.longitude || anchor.longitude
-    }, activeLocation?.location.zoom || anchor.zoom);
+      lat: activeLocation?.latitude || anchor.latitude,
+      lng: activeLocation?.longitude || anchor.longitude
+    }, activeLocation?.zoom || anchor.zoom);
 
     return () => {
       mapRef.current?.removeLayer(markerLayer);
