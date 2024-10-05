@@ -122,8 +122,6 @@ describe('User thunks', () => {
     });
 
     it('should call removeToken once', async () => {
-      const responseBody = { token: 'secret' };
-
       const mockRemoveToken = vi.spyOn(tokenStorage, 'removeToken');
       await store.dispatch(logOutThunk());
 

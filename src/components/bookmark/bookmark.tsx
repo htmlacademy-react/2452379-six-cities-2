@@ -5,7 +5,6 @@ import { postFavoriteOfferStatusThunk } from '../../store/slices/offers/offers.t
 import { OfferId } from '../../types/offer';
 import { getIsAuthorized } from '../../store/slices/user/user.selectors';
 import { isOfferFavorite } from '../../store/slices/offers/offers.selectors';
-import { toast } from 'react-toastify';
 
 type BookmarkProps = {
   offerId: OfferId;
