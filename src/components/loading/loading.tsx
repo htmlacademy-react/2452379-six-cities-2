@@ -1,4 +1,4 @@
-import { CSSProperties, HTMLAttributes } from 'react';
+import { CSSProperties } from 'react';
 
 import './loading.css';
 
@@ -8,7 +8,6 @@ export type LoadingProps = {
   speed: number;
   still: boolean;
   thickness: number;
-  svgProps: HTMLAttributes<SVGElement>;
 }
 
 const coords = [
@@ -45,8 +44,7 @@ export default function Loading({
   secondaryColor,
   speed,
   still,
-  thickness,
-  ...svgProps
+  thickness
 }: LoadingProps): JSX.Element {
   const diamondStyle: CSSProperties = {
     animation: `spinners-react-diamond ${140 / speed}s steps(2, end) infinite`,
@@ -58,7 +56,7 @@ export default function Loading({
 
   return (
     <div style={{ width: '30%', margin: 'auto' }}>
-      <svg fill={mainColor} {...svgProps} viewBox="0 0 96 96">
+      <svg fill={mainColor} viewBox="0 0 96 96">
         {coords.map((c) => (
           <circle key={`${c.x}-${c.y}`} cx={c.x} cy={c.y} fill={secondaryColor} r={2.5 * (thickness / 100)} />
         ))}

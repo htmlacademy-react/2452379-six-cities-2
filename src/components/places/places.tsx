@@ -11,7 +11,7 @@ export default function Places({ offers, onActivePlaceChange }: PlacesProps): JS
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">{offers.length} places to stay in {offers[0].city.name}</b>
+      <b className="places__found">{offers.length} place{offers.length > 1 && 's'} to stay in {offers[0].city.name}</b>
       <PlacesSortForm />
       <PlacesList onActivePlaceChange={onActivePlaceChange} offers={offers} displayType={'main'} />
     </section>

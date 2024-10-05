@@ -25,7 +25,7 @@ const createRouter = () => createBrowserRouter([
           </PrivateRoute>,
       },
       {
-        path: AppRoute.Login,
+        path: AppRoute.LogIn,
         element: <LoginPage />,
       },
       {

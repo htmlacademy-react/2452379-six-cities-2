@@ -11,7 +11,7 @@ function PrivateRoute({ children }: PrivateRouteProps): JSX.Element {
   const { isFulfilled, isRejected } = useAppSelector(getAuthFetchStatus);
   return (
     (isFulfilled && children)
-    || (isRejected && <Navigate to={AppRoute.Login} />)
+    || (isRejected && <Navigate to={AppRoute.LogIn} />)
     || <div />
   );
 }

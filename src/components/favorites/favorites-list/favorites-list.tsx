@@ -1,5 +1,5 @@
-import { CityName } from '../../types/city';
-import { Offer } from '../../types/offer';
+import { CityName } from '../../../types/city';
+import { Offer } from '../../../types/offer';
 import FavoritesItem from './favorite-item/favorite-item';
 
 type FavoriteListProps = {

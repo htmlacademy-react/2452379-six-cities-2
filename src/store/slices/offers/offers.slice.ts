@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getFavoriteOffersThunk, getOffersNearbyThunk, getOffersThunk, getOfferThunk, postFavoriteOfferStatus } from './offers.thunks';
+import { getFavoriteOffersThunk, getOffersNearbyThunk, getOffersThunk, getOfferThunk, postFavoriteOfferStatusThunk } from './offers.thunks';
 import { OffersSlice } from './type';
 import { FetchStatus, NameSpace } from '../../../const';
 import { Offer } from '../../../types/offer';
@@ -14,7 +14,7 @@ const initialState: OffersSlice = {
   favoriteOffersFetchStatus: FetchStatus.Idle
 };
 
-export const offersProcess = createSlice({
+export const offersSlice = createSlice({
   name: NameSpace.Offers,
   initialState,
   reducers: {
@@ -50,7 +50,7 @@ export const offersProcess = createSlice({
       .addCase(getFavoriteOffersThunk.rejected, (state) => {
         state.favoriteOffersFetchStatus = FetchStatus.Rejected;
       })
-      .addCase(postFavoriteOfferStatus.fulfilled, (state, action) => {
+      .addCase(postFavoriteOfferStatusThunk.fulfilled, (state, action) => {
         if (action.payload.isFavorite) {
           state.favoriteOffers.push(action.payload);
         } else {
@@ -58,10 +58,10 @@ export const offersProcess = createSlice({
         }
         state.offersFetchStatus = FetchStatus.Fullfilled;
       })
-      .addCase(postFavoriteOfferStatus.rejected, (state) => {
+      .addCase(postFavoriteOfferStatusThunk.rejected, (state) => {
         state.offersFetchStatus = FetchStatus.Rejected;
       });
   }
 });
 
-export const { setActiveOffer } = offersProcess.actions;
+export const { setActiveOffer } = offersSlice.actions;

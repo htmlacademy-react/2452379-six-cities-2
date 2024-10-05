@@ -1,12 +1,13 @@
 import clsx from 'clsx';
-import { useAppSelector } from '../../hooks';
-import FavoritesEmpty from '../../pages/favorites-page/favorites-empty/favorites-empty';
-import { getFavoriteOffers } from '../../store/slices/offers/offers.selectors';
-import FavoritesList from '../favorites-list/favorites-list';
+import FavoritesEmpty from './favorites-empty/favorites-empty';
+import FavoritesList from './favorites-list/favorites-list';
+import { Offer } from '../../types/offer';
 
-export default function Favorites(): JSX.Element {
-  const offers = useAppSelector(getFavoriteOffers);
+type FavoritesProps = {
+  offers: Offer[];
+}
 
+export default function Favorites({ offers }: FavoritesProps): JSX.Element {
   const isEmpty = offers.length === 0;
 
   return (

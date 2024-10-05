@@ -7,19 +7,19 @@ export const DEFAULT_SORT_TYPE: OfferSortType = 'none';
 
 export enum AppRoute {
   Main = '/',
-  Login = '/login',
+  LogIn = '/login',
   Favorites = '/favorites',
   Offer = '/offer/:id',
   LogOut = '/logOut',
-  Unknown = '*'
+  Unknown = '/*'
 }
 
 export enum ApiRoute {
   Offers = '/offers',
   OfferById = '/offers/:offerId',
   OffersNearby = '/offers/:offerId/nearby',
-  favoriteOffers = '/favorite',
-  favoriteOfferStatus = '/favorite/:offerId/:status',
+  FavoriteOffers = '/favorite',
+  FavoriteOfferStatus = '/favorite/:offerId/:status',
   Reviews = '/comments/:offerId',
   Auth = '/login'
 }

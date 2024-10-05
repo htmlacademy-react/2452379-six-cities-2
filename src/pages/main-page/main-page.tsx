@@ -11,8 +11,7 @@ const loadingProps: LoadingProps = {
   secondaryColor: '#f0f0f0',
   speed: 100,
   still: false,
-  thickness: 100,
-  svgProps: {}
+  thickness: 100
 };
 
 

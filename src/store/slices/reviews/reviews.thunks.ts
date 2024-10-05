@@ -23,8 +23,8 @@ export const getReviewsThunk =
         if (error.response?.status === StatusCodes.NOT_FOUND) {
           toast.error((error.response.data as NotFoundError).message);
         }
-        throw error;
       }
+      throw error;
     }
   });
 
@@ -50,7 +50,7 @@ export const postReviewThunk =
             toast.error((error.response.data as ValidationError).message);
             break;
         }
-        throw error;
       }
+      throw error;
     }
   });
