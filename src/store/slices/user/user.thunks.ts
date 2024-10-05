@@ -7,6 +7,7 @@ import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
 import { ValidationError } from '../../../types/errors';
 import { getFavoriteOffersThunk } from '../offers/offers.thunks';
+import { removeToken, saveToken } from '../../../services/token';
 
 export const fetchAuthThunk = createAsyncThunk<
   UserData,
@@ -15,6 +16,7 @@ export const fetchAuthThunk = createAsyncThunk<
 >(ApiAction.fetchAuth, async (_, { dispatch, extra: { api, router } }) => {
   try {
     const { data } = await api.get<UserData>(ApiRoute.Auth);
+    saveToken(data.token);
 
     if (router.state.location.pathname === AppRoute.Login) {
       router.navigate(AppRoute.Main);
@@ -37,10 +39,14 @@ export const logInThunk = createAsyncThunk<
   UserData,
   UserLogIn,
   ThunksOptions
->(ApiAction.logIn, async (loginData, { extra: { api, router } }) => {
+>(ApiAction.logIn, async (loginData, { dispatch, extra: { api, router } }) => {
   try {
     const { data } = await api.post<UserData>(ApiRoute.Auth, loginData);
+    saveToken(data.token);
+
     router.navigate(AppRoute.Main);
+    dispatch(getFavoriteOffersThunk());
+
     return data;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -59,6 +65,8 @@ export const logOutThunk = createAsyncThunk<
   undefined,
   ThunksOptions
 >(ApiAction.logOut, async (_, { extra: { api, router } }) => {
+  removeToken();
+
   const { data } = await api.delete<UserData>(ApiRoute.Auth);
   router.navigate(AppRoute.Main);
   return data;
