@@ -18,7 +18,7 @@ export const fetchAuthThunk = createAsyncThunk<
     const { data } = await api.get<UserData>(ApiRoute.Auth);
     saveToken(data.token);
 
-    if (router.state.location.pathname === AppRoute.Login) {
+    if (router.state.location.pathname === AppRoute.LogIn) {
       router.navigate(AppRoute.Main);
     }
 

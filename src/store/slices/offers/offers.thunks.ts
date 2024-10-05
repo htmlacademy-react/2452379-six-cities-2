@@ -32,7 +32,7 @@ export const getFavoriteOffersThunk =
     ThunksOptions
   >(ApiAction.getFavoriteOffers, async (_, { extra: { api } }) => {
     try {
-      const { data } = await api.get<Offer[]>(ApiRoute.favoriteOffers);
+      const { data } = await api.get<Offer[]>(ApiRoute.FavoriteOffers);
       return data;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -63,6 +63,7 @@ export const getOfferThunk =
           toast.error(error.message);
         }
       }
+      throw error;
     }
   });
 
@@ -82,8 +83,8 @@ export const getOffersNearbyThunk =
         } else {
           toast.error(error.message);
         }
-        throw error;
       }
+      throw error;
     }
   });
 
@@ -94,7 +95,7 @@ export const postFavoriteOfferStatusThunk =
     ThunksOptions
   >(ApiAction.postFavoriteOfferStatus, async ({ offerId, status }, { extra: { router, api } }) => {
     try {
-      const { data } = await api.post<Offer>(generatePath(ApiRoute.favoriteOfferStatus, { offerId, status: `${+status}` }));
+      const { data } = await api.post<Offer>(generatePath(ApiRoute.FavoriteOfferStatus, { offerId, status: `${+status}` }));
       return data;
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -103,8 +104,8 @@ export const postFavoriteOfferStatusThunk =
             toast.error((error.response.data as NotFoundError).message);
             break;
           case StatusCodes.UNAUTHORIZED:
+            router.navigate(AppRoute.LogIn);
             toast.error((error.response.data as AuthorizationError).message);
-            router.navigate(AppRoute.Login);
             break;
           case StatusCodes.BAD_REQUEST:
             toast.error((error.response.data as ValidationError).message);

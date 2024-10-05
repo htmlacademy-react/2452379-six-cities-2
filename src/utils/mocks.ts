@@ -2,6 +2,13 @@ import { Offer, OfferFull } from '../types/offer';
 import { datatype, commerce, image, address, lorem, internet } from 'faker';
 import { Review } from '../types/review';
 import { User, UserData } from '../types/user';
+import { Action, ThunkDispatch } from '@reduxjs/toolkit';
+import { State } from '../store/type';
+import { createApi } from '../services/api';
+
+export type AppDispatch = ThunkDispatch<State, ReturnType<typeof createApi>, Action>;
+
+export const extractActions = (actions: Action<string>[]) => actions.map((a) => a.type);
 
 export const createFakeUser = (): User => ({
   name: internet.userName(),
@@ -45,7 +52,7 @@ export const createFakeFullOffer = (): OfferFull => ({
   maxAdults: datatype.number(5),
   host: createFakeUser(),
   goods: lorem.words(5).split(' '),
-  images: [ image.dataUri(), image.dataUri()],
+  images: [image.dataUri(), image.dataUri()],
   description: lorem.sentences(5)
 });
 
