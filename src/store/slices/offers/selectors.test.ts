@@ -1,7 +1,7 @@
 import { describe, expect } from 'vitest';
 import { FetchStatus, NameSpace } from '../../../const';
 import { OffersSlice } from './type';
-import { getActiveOffer, getActiveOfferId, getActiveOfferLocation, getFavoriteOffers, getOffers, getOffersNearby, getOffersStateFetchStatusOf, isOfferFavorite } from './offers.selectors';
+import { getActiveOffer, getActiveOfferId, getActiveOfferLocation, getFavoriteOffers, getFavoriteOffersFetchStatus, getIsEmptyOf, getIsLoadingOf, getOffers, getOffersFetchStatus, getOffersNearby, getOffersStateFetchStatusOf, isOfferFavorite } from './offers.selectors';
 import { createFakeOffer, createFakeOffers } from '../../../utils/mocks';
 
 describe('Offers Slice selectors', () => {
@@ -52,17 +52,19 @@ describe('Offers Slice selectors', () => {
     expect(result).toEqual(favoriteOffers);
   });
 
-  it('should return offers fetch status', () => {
-    const { offersFetchStatus, offers: offers } = state[NameSpace.Offers];
-    const result = getOffersStateFetchStatusOf('offers')(state);
-    expect(result).toEqual({
-      isLoading: offersFetchStatus === FetchStatus.Idle || offersFetchStatus === FetchStatus.Pending,
-      isRejected: offersFetchStatus === FetchStatus.Rejected,
-      isEmpty: offersFetchStatus === FetchStatus.Fullfilled && offers.length === 0
-    });
+  it('should return offers isLoading', () => {
+    const { offersFetchStatus } = state[NameSpace.Offers];
+    const result = getIsLoadingOf('offers')(state);
+    expect(result).toBe(offersFetchStatus === FetchStatus.Idle || FetchStatus.Pending);
   });
 
-  it('should return offer is favorite', () => {
+  it('should return offers isLoading', () => {
+    const { offers } = state[NameSpace.Offers];
+    const result = getIsEmptyOf('offers')(state);
+    expect(result).toBe(offers.length === 0);
+  });
+
+  it('should return offer isFavorite', () => {
     const { id } = state[NameSpace.Offers].offers[0];
     const favoriteOffers = state[NameSpace.Offers].favoriteOffers;
     const result = isOfferFavorite(id)(state);

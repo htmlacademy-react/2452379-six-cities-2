@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { getFavoriteOffers, getOffersStateFetchStatusOf } from '../../store/slices/offers/offers.selectors';
+import { getFavoriteOffers, getIsLoadingOf } from '../../store/slices/offers/offers.selectors';
 import { getUserEmail } from '../../store/slices/user/user.selectors';
 
 export default function User(): JSX.Element {
-  const { isLoading } = useAppSelector(getOffersStateFetchStatusOf('favoriteOffers'));
+  const isLoading = useAppSelector(getIsLoadingOf('favoriteOffers'));
   const { length: favoriteOffersCount } = useAppSelector(getFavoriteOffers);
   const email = useAppSelector(getUserEmail);
 

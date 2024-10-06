@@ -13,13 +13,11 @@ export const getActiveOfferId = ({ OFFERS }: OffersState) => OFFERS.activeOffer?
 export const getActiveOfferLocation = ({ OFFERS }: OffersState) => OFFERS.activeOffer?.location;
 export const getOffersNearby = ({ OFFERS }: OffersState) => OFFERS.nearbyOffers;
 export const getFavoriteOffers = ({ OFFERS }: OffersState) => OFFERS.favoriteOffers;
-export const getOffersStateFetchStatusOf = (prop: OffersStateFetchStatuses) => ({ OFFERS }: OffersState) => {
-  const offers = OFFERS[prop];
+export const getIsLoadingOf = (prop: OffersStateFetchStatuses) => ({ OFFERS }: OffersState) => {
   const fetchStatus = OFFERS[`${prop}FetchStatus` as keyof OffersState['OFFERS']];
-  return {
-    isLoading: fetchStatus === FetchStatus.Idle || fetchStatus === FetchStatus.Pending,
-    isRejected: fetchStatus === FetchStatus.Rejected,
-    isEmpty: fetchStatus === FetchStatus.Fullfilled && offers.length === 0
-  };
+  return fetchStatus === FetchStatus.Idle || fetchStatus === FetchStatus.Pending;
 };
+export const getIsEmptyOf =
+  (prop: OffersStateFetchStatuses) => ({ OFFERS }: OffersState) => OFFERS[prop].length === 0;
+
 export const isOfferFavorite = (id: OfferId) => ({ OFFERS }: OffersState) => !!OFFERS.favoriteOffers.find(({ id: favoriteOfferId }) => favoriteOfferId === id);
