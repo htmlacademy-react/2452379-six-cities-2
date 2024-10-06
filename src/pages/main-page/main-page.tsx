@@ -4,7 +4,7 @@ import Cities from '../../components/cities/cities';
 import Layout from '../../components/layout/layout';
 import Loading, { LoadingProps } from '../../components/loading/loading';
 import { useAppSelector } from '../../hooks';
-import { getOffersStateFetchStatusOf } from '../../store/slices/offers/offers.selectors';
+import { getIsEmptyOf, getIsLoadingOf } from '../../store/slices/offers/offers.selectors';
 
 const loadingProps: LoadingProps = {
   mainColor: '#4d81af',
@@ -16,7 +16,8 @@ const loadingProps: LoadingProps = {
 
 
 export default function MainPage(): JSX.Element {
-  const { isLoading, isEmpty } = useAppSelector(getOffersStateFetchStatusOf('offers'));
+  const isLoading = useAppSelector(getIsLoadingOf('offers'));
+  const isEmpty = useAppSelector(getIsEmptyOf('offers'));
 
   return (
     <Layout className="page--gray page--main">
