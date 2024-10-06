@@ -1,7 +1,7 @@
 import { describe, expect } from 'vitest';
 import { FetchStatus, NameSpace } from '../../../const';
 import { OffersSlice } from './type';
-import { getActiveOffer, getActiveOfferId, getActiveOfferLocation, getFavoriteOffers, getFavoriteOffersFetchStatus, getIsEmptyOf, getIsLoadingOf, getOffers, getOffersFetchStatus, getOffersNearby, getOffersStateFetchStatusOf, isOfferFavorite } from './offers.selectors';
+import { getActiveOffer, getActiveOfferId, getActiveOfferLocation, getFavoriteOffers, getIsEmptyOf, getIsLoadingOf, getOffers, getOffersNearby, isOfferFavorite } from './offers.selectors';
 import { createFakeOffer, createFakeOffers } from '../../../utils/mocks';
 
 describe('Offers Slice selectors', () => {
