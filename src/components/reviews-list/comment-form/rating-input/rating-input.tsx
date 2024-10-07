@@ -33,7 +33,7 @@ export default function RatingInput({ rating, onInput }: RatingInputProps): JSX.
               </svg>
             </label>
           </Fragment>
-        ))
+        )).reverse()
       }
     </div>
   );
