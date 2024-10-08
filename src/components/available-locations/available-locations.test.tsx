@@ -1,8 +1,8 @@
 import { screen, render } from '@testing-library/react';
 import AvailableLocations from './available-locations';
-import { withMockStore } from '../../../utils/mock-components';
-import { State } from '../../../store/type';
-import { AVAILABLE_LOCATIONS, NameSpace } from '../../../const';
+import { withMockStore } from '../../utils/mock-components';
+import { State } from '../../store/type';
+import { AVAILABLE_LOCATIONS, NameSpace } from '../../const';
 
 describe('Component: AvailableLocations', () => {
   it('should render correctly', () => {

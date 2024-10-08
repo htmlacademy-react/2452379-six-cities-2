@@ -1,5 +1,5 @@
-import { Offer } from '../../types/offer';
-import PlacesList from '../places-list/places-list';
+import { Offer } from '../../../types/offer';
+import PlacesList from '../../places-list/places-list';
 import PlacesSortForm from './places-sort-form/places-sort-form';
 
 type PlacesProps = {

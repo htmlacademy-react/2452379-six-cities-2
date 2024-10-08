@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import User from './user';
-import { createFakeOffersSlice, createFakeUserSlice } from '../../utils/mocks';
-import { State } from '../../store/type';
-import { withMockStore, withRouter } from '../../utils/mock-components';
-import { FetchStatus, NameSpace } from '../../const';
-import { UserData } from '../../types/user';
+import { createFakeOffersSlice, createFakeUserSlice } from '../../../../../utils/mocks';
+import { State } from '../../../../../store/type';
+import { withMockStore, withRouter } from '../../../../../utils/mock-components';
+import { FetchStatus, NameSpace } from '../../../../../const';
+import { UserData } from '../../../../../types/user';
 
 describe('Component: User', () => {
   it('should render correctly when loading', () => {

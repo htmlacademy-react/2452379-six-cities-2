@@ -6,9 +6,8 @@ import { createApi } from '../services/api';
 import { State } from '../store/type';
 import { Action } from '@reduxjs/toolkit';
 import { AppDispatch } from './mocks';
-import { createRouter, router } from '../services/router';
-import { BrowserRouter, RouteObject } from 'react-router-dom';
-import { AppRoute } from '../const';
+import { router } from '../services/router';
+import { BrowserRouter } from 'react-router-dom';
 
 type ComponentWithMockStore = {
   component: JSX.Element;

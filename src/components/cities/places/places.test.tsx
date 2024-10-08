@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { createFakeAppSlice, createFakeOffersSlice, createFakeUserSlice } from '../../utils/mocks';
-import { State } from '../../store/type';
-import { NameSpace } from '../../const';
+import { createFakeAppSlice, createFakeOffersSlice, createFakeUserSlice } from '../../../utils/mocks';
+import { State } from '../../../store/type';
+import { NameSpace } from '../../../const';
 import Places from './places';
-import { withMockStore, withRouter } from '../../utils/mock-components';
+import { withMockStore, withRouter } from '../../../utils/mock-components';
 
 describe('Component: Places', () => {
   const initialState: Omit<State, NameSpace.Reviews> = {

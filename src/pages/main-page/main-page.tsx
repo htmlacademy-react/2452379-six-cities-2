@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import AvailableLocations from '../../components/cities/available-locations/available-locations';
+import AvailableLocations from '../../components/available-locations/available-locations';
 import Cities from '../../components/cities/cities';
 import Layout from '../../components/layout/layout';
 import Loading, { LoadingProps } from '../../components/loading/loading';

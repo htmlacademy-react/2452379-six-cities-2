@@ -1,8 +1,8 @@
 import clsx from 'clsx';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { AVAILABLE_LOCATIONS } from '../../../const';
-import { getCity } from '../../../store/slices/app/app.selectors';
-import { changeCity } from '../../../store/slices/app/app.slice';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { AVAILABLE_LOCATIONS } from '../../const';
+import { getCity } from '../../store/slices/app/app.selectors';
+import { changeCity } from '../../store/slices/app/app.slice';
 
 
 export default function AvailableLocations(): JSX.Element {

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../../const';
 import { useAppSelector } from '../../../../hooks';
 import { getIsAuthorized } from '../../../../store/slices/user/user.selectors';
-import User from '../../../user/user';
+import User from './user/user';
 
 
 function HeaderNav(): JSX.Element {

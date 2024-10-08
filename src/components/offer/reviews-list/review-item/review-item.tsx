@@ -6,8 +6,8 @@ type ReviewItemProps = {
 }
 
 const humanizeDate = (date: string) => {
-  const d = new Date(date);
-  return `${d.toLocaleString('en-GB', { month: 'long' })} ${d.getFullYear()}`;
+  const parsedDate = new Date(date);
+  return `${parsedDate.toLocaleString('en-GB', { month: 'long' })} ${parsedDate.getFullYear()}`;
 };
 
 export default function ReviewItem({ review }: ReviewItemProps): JSX.Element {

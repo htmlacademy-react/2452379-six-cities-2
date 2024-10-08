@@ -21,7 +21,7 @@ describe('Component: ReviewItem', () => {
     expect(screen.getByTestId(testId)).toBeInTheDocument();
     expect(screen.queryByTestId(commentFormTestId)).not.toBeInTheDocument();
   });
-  
+
   it('should render correctly when reviews and authorised', () => {
     const initialState: Pick<State, NameSpace.User | NameSpace.Reviews> = {
       USER: createFakeUserSlice({ authStatus: AuthorizationStatus.Auth }),

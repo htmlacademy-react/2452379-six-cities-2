@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { State } from '../../../store/type';
-import { NameSpace, SORT_TYPES } from '../../../const';
-import { createFakeAppSlice } from '../../../utils/mocks';
-import { withMockStore } from '../../../utils/mock-components';
+import { State } from '../../../../store/type';
+import { NameSpace, SORT_TYPES } from '../../../../const';
+import { createFakeAppSlice } from '../../../../utils/mocks';
+import { withMockStore } from '../../../../utils/mock-components';
 import PlacesSortForm from './places-sort-form';
 import userEvent from '@testing-library/user-event';
 
