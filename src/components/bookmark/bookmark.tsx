@@ -25,7 +25,8 @@ const iconSizes: { [key: string]: Size } = {
 export default function Bookmark({ offerId, className }: BookmarkProps): JSX.Element {
   const dispatch = useAppDispatch();
   const isAuthorized = useAppSelector(getIsAuthorized);
-  const isBookmarked = useAppSelector(isOfferFavorite(offerId));
+  const isFavorite = useAppSelector(isOfferFavorite(offerId));
+  const isBookmarked = isAuthorized && isFavorite;
 
   const handleClick = () => {
     dispatch(postFavoriteOfferStatusThunk({ offerId, status: !isBookmarked }));
@@ -33,9 +34,10 @@ export default function Bookmark({ offerId, className }: BookmarkProps): JSX.Ele
 
   return (
     <button
-      className={clsx('button', `${className}__bookmark-button`, isAuthorized && isBookmarked && `${className}__bookmark-button--active`)}
+      className={clsx('button', `${className}__bookmark-button`, isBookmarked && `${className}__bookmark-button--active`)}
       onClick={handleClick}
       type="button"
+      data-testid="button"
     >
       <svg
         className={`${className}__bookmark-icon`}

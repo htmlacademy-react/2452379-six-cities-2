@@ -58,6 +58,7 @@ function PlaceCard({ offer, displayType, onCardMouseEnter, onCardMouseLeave }: P
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={clsx('place-card', displayTypesClassNames[displayType]['place-card'])}
+      data-testid="PlaceCard"
     >
       {
         offer.isPremium &&

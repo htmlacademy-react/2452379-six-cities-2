@@ -26,7 +26,7 @@ function PlacesList({ offers, displayType, onActivePlaceChange }: PlacesListProp
   ));
 
   return (
-    <div className={displayTypesClassNames[displayType]}>
+    <div className={displayTypesClassNames[displayType]} data-testid="PlacesList">
       {cards}
     </div>
   );

@@ -62,7 +62,7 @@ export default function Loading({
   }
 
   return (
-    <div style={{ width: '30%', margin: 'auto' }}>
+    <div style={{ width: '30%', margin: 'auto' }} data-testid="Loader">
       <svg fill={mainColor} viewBox="0 0 96 96">
         {coords.map((c) => (
           <circle key={`${c.x}-${c.y}`} cx={c.x} cy={c.y} fill={secondaryColor} r={circleSizeCoefficients.default * (thickness / 100)} />

@@ -9,7 +9,7 @@ function HeaderNav(): JSX.Element {
   const isAuthorized = useAppSelector(getIsAuthorized);
 
   return (
-    <nav className="header__nav">
+    <nav className="header__nav" data-testid="HeaderNav">
       <ul className="header__nav-list">
         {
           isAuthorized

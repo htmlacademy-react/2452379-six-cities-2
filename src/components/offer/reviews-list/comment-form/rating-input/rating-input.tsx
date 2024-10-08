@@ -15,7 +15,7 @@ type RatingInputProps = {
 
 export default function RatingInput({ rating, onInput }: RatingInputProps): JSX.Element {
   return (
-    <div className="reviews__rating-form form__rating">
+    <div className="reviews__rating-form form__rating" data-testid="RatingInput">
       {
         ratingTitles.map((title, index) => (
           <Fragment key={title}>
@@ -26,6 +26,7 @@ export default function RatingInput({ rating, onInput }: RatingInputProps): JSX.
               id={`${index + 1}-stars`}
               type="radio"
               checked={index + 1 === rating}
+              data-testid={`${index + 1}-stars`}
             />
             <label htmlFor={`${index + 1}-stars`} className="reviews__rating-label form__rating-label" title={title}>
               <svg className="form__star-image" width="37" height="33">

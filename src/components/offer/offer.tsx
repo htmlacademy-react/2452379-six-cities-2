@@ -2,7 +2,7 @@ import { offerTypes } from '../../const';
 import { type Offer, OfferFull } from '../../types/offer';
 import Bookmark from '../bookmark/bookmark';
 import Map from '../map/map';
-import ReviewsList from '../reviews-list/reviews-list';
+import ReviewsList from './reviews-list/reviews-list';
 import StarsRating from '../stars-rating/stars-rating';
 
 type OfferProps = {

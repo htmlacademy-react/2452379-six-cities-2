@@ -77,4 +77,6 @@ export const offersSortTypes: Record<OfferSortType, OfferSort> = {
   'topDesc': (offerA, offerB) => +(offerA.rating < offerB.rating)
 };
 
+export const SORT_TYPES = ['none', 'priceAsc', 'priceDesc', 'topDesc'] as const;
+
 export const AVAILABLE_LOCATIONS = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;

@@ -22,7 +22,11 @@ export default function AvailableLocations(): JSX.Element {
                   className="locations__item"
                   onClick={() => dispatch(changeCity(location))}
                 >
-                  <a className={clsx('locations__item-link tabs__item', location === city && 'tabs__item--active')} href="#">
+                  <a
+                    className={clsx('locations__item-link tabs__item', location === city && 'tabs__item--active')}
+                    data-testid={location}
+                    href="#"
+                  >
                     <span>{location}</span>
                   </a>
                 </li>
