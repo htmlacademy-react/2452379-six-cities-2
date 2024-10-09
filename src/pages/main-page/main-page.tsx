@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import AvailableLocations from '../../components/cities/available-locations/available-locations';
+import AvailableLocations from '../../components/available-locations/available-locations';
 import Cities from '../../components/cities/cities';
 import Layout from '../../components/layout/layout';
 import Loading, { LoadingProps } from '../../components/loading/loading';
@@ -21,7 +21,7 @@ export default function MainPage(): JSX.Element {
 
   return (
     <Layout className="page--gray page--main">
-      <main className={clsx('page__main page__main--index', isEmpty && 'page__main--index-empty')}>
+      <main className={clsx('page__main page__main--index', isEmpty && 'page__main--index-empty')} data-testid="MainPage">
         <AvailableLocations />
         {
           isLoading

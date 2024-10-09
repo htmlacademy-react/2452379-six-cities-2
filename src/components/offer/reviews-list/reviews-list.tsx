@@ -1,6 +1,6 @@
-import { useAppSelector } from '../../hooks';
-import { getRecentReviews } from '../../store/slices/reviews/reviews.selectors';
-import { getIsAuthorized } from '../../store/slices/user/user.selectors';
+import { useAppSelector } from '../../../hooks';
+import { getRecentReviews } from '../../../store/slices/reviews/reviews.selectors';
+import { getIsAuthorized } from '../../../store/slices/user/user.selectors';
 import CommentForm from './comment-form/comment-form';
 import ReviewItem from './review-item/review-item';
 
@@ -11,7 +11,7 @@ export default function ReviewsList(): JSX.Element {
   const reviews = useAppSelector(getRecentReviews);
 
   return (
-    <section className="offer__reviews reviews">
+    <section className="offer__reviews reviews" data-testid="ReviewsList">
       {reviews.length > 0 &&
         (
           <>

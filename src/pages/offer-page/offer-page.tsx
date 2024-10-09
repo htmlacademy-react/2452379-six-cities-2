@@ -31,7 +31,7 @@ function OfferPage(): JSX.Element {
 
   return (
     <Layout>
-      <main className="page__main page__main--offer">
+      <main className="page__main page__main--offer" data-testid="OfferPage">
         {isOfferFull(offer) && <Offer offer={offer} offersNearby={nearbyOffers} />}
         <div className="container">
           {nearbyOffers && <PlacesList offers={nearbyOffers} displayType='offer' />}

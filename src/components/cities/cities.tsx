@@ -1,7 +1,7 @@
 import Map from '../map/map';
 import CitiesEmpty from './cities-empty/cities-empty';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import Places from '../places/places';
+import Places from './places/places';
 import { getSortedCityOffers } from '../../store/slices/app/app.selectors';
 import { setActiveOffer } from '../../store/slices/offers/offers.slice';
 import { Offer } from '../../types/offer';
@@ -21,7 +21,7 @@ export default function Cities(): JSX.Element {
         isEmpty
           ? <CitiesEmpty />
           : (
-            <div className="cities__places-container container">
+            <div className="cities__places-container container" data-testid="CitiesPlacesContainer">
               <Places offers={sortedCityOffers} onActivePlaceChange={handleActivePlaceChange} />
               <div className="cities__right-section">
                 <Map

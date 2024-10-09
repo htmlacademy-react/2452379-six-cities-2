@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { useRef, useState } from 'react';
-import { OfferSortType } from '../../../types/sort';
-import { offersSortTypes } from '../../../const';
+import { OfferSortType } from '../../../../types/sort';
+import { offersSortTypes } from '../../../../const';
 import { useOnClickOutside } from 'usehooks-ts';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { getSortType } from '../../../store/slices/app/app.selectors';
-import { changeSort } from '../../../store/slices/app/app.slice';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { getSortType } from '../../../../store/slices/app/app.selectors';
+import { changeSort } from '../../../../store/slices/app/app.slice';
 
 
 const offerSortTypesTitles: Record<OfferSortType, string> = {
@@ -23,7 +23,14 @@ export default function PlacesSortForm(): JSX.Element {
   useOnClickOutside(ref, () => setIsOpened(false));
 
   return (
-    <form ref={ref} onClick={() => setIsOpened(!isOpened)} className="places__sorting" action="#" method="get">
+    <form
+      ref={ref}
+      onClick={() => setIsOpened(!isOpened)}
+      className="places__sorting"
+      action="#"
+      method="get"
+      data-testid="PlacesSortForm"
+    >
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex={0}>
         {offerSortTypesTitles[type]}
@@ -31,7 +38,10 @@ export default function PlacesSortForm(): JSX.Element {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={clsx('places__options places__options--custom', isOpened ? 'places__options--opened' : 'places__options--closed')}>
+      <ul
+        className={clsx('places__options places__options--custom', isOpened ? 'places__options--opened' : 'places__options--closed')}
+        data-testid="PlacesSortFormList"
+      >
         {
           Object
             .keys(offersSortTypes)
@@ -41,6 +51,7 @@ export default function PlacesSortForm(): JSX.Element {
                 className={clsx('places__option', sortType === type && 'places__option--active')}
                 onClick={() => dispatch(changeSort(sortType as OfferSortType))}
                 tabIndex={0}
+                data-testid={sortType}
               >
                 {offerSortTypesTitles[sortType as OfferSortType]}
               </li>

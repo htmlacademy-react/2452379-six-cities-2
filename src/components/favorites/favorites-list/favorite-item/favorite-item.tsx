@@ -7,7 +7,7 @@ type FavoriteItemProps = {
   offers: Offer[];
 }
 
-export default function FavoritesItem({city, offers}: FavoriteItemProps) {
+export default function FavoriteItem({city, offers}: FavoriteItemProps) {
   return (
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">

@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { getFavoriteOffers, getIsLoadingOf } from '../../store/slices/offers/offers.selectors';
-import { getUserEmail } from '../../store/slices/user/user.selectors';
+import { AppRoute } from '../../../../../const';
+import { useAppSelector } from '../../../../../hooks';
+import { getFavoriteOffers, getIsLoadingOf } from '../../../../../store/slices/offers/offers.selectors';
+import { getUserEmail } from '../../../../../store/slices/user/user.selectors';
 
 export default function User(): JSX.Element {
   const isLoading = useAppSelector(getIsLoadingOf('favoriteOffers'));

@@ -1,11 +1,11 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { postReviewThunk } from '../../../store/slices/reviews/reviews.thunks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { postReviewThunk } from '../../../../store/slices/reviews/reviews.thunks';
 import { useParams } from 'react-router-dom';
-import { ReviewRaw } from '../../../types/review';
+import { ReviewRaw } from '../../../../types/review';
 import RatingInput from './rating-input/rating-input';
-import { getReviewPostStatus } from '../../../store/slices/reviews/reviews.selectors';
-import { FetchStatus } from '../../../const';
+import { getReviewPostStatus } from '../../../../store/slices/reviews/reviews.selectors';
+import { FetchStatus } from '../../../../const';
 
 type FormData = {
   rating: number;
@@ -55,10 +55,17 @@ export default function CommentForm() {
   }, [postStatus]);
 
   return (
-    <form onSubmit={handleSubmit} className="reviews__form form" action="#" method="post">
+    <form onSubmit={handleSubmit} className="reviews__form form" action="#" method="post" data-testid="CommentForm">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <RatingInput rating={formData.rating} onInput={(rating) => setFormData({ ...formData, rating })} />
-      <textarea onChange={(evt) => setFormData({ ...formData, review: evt.target.value })} className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" value={formData.review}></textarea>
+      <textarea
+        onChange={(evt) => setFormData({ ...formData, review: evt.target.value })}
+        className="reviews__textarea form__textarea"
+        id="review"
+        name="review"
+        placeholder="Tell how was your stay, what you like and what can be improved"
+        value={formData.review}
+      />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.

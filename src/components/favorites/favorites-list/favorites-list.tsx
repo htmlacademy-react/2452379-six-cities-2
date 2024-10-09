@@ -1,6 +1,6 @@
 import { CityName } from '../../../types/city';
 import { Offer } from '../../../types/offer';
-import FavoritesItem from './favorite-item/favorite-item';
+import FavoriteItem from './favorite-item/favorite-item';
 
 type FavoriteListProps = {
   offers: Offer[];
@@ -20,11 +20,11 @@ export default function FavoritesList({ offers }: FavoriteListProps) {
   const favoritesItems: JSX.Element[] = [];
 
   for (const city in cityOffers) {
-    favoritesItems.push(<FavoritesItem key={city} city={city as CityName} offers={cityOffers[city]} />);
+    favoritesItems.push(<FavoriteItem key={city} city={city as CityName} offers={cityOffers[city]} />);
   }
 
   return (
-    <section className="favorites">
+    <section className="favorites" data-testid="FavoritesContainer">
       <h1 className="favorites__title">Saved listing</h1>
       <ul className="favorites__list">
         {favoritesItems}

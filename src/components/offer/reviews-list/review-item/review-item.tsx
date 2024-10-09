@@ -1,18 +1,18 @@
-import { Review } from '../../../types/review';
-import StarsRating from '../../stars-rating/stars-rating';
+import { Review } from '../../../../types/review';
+import StarsRating from '../../../stars-rating/stars-rating';
 
 type ReviewItemProps = {
   review: Review;
 }
 
 const humanizeDate = (date: string) => {
-  const d = new Date(date);
-  return `${d.toLocaleString('en-GB', { month: 'long' })} ${d.getFullYear()}`;
+  const parsedDate = new Date(date);
+  return `${parsedDate.toLocaleString('en-GB', { month: 'long' })} ${parsedDate.getFullYear()}`;
 };
 
 export default function ReviewItem({ review }: ReviewItemProps): JSX.Element {
   return (
-    <li key={review.id} className="reviews__item">
+    <li key={review.id} className="reviews__item" data-testid="ReviewItem">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
           <img className="reviews__avatar user__avatar" src={review.user.avatarUrl} width="54" height="54" alt="Reviews avatar"></img>

@@ -6,7 +6,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { AppRoute } from '../const';
 import UnknownPage from '../pages/unknown-page/unknown-page';
 import PrivateRoute from '../components/private-route/private-route';
-import WithLogOutThunk from '../hocs/withLogOutThunk';
+import WithLogOutThunk from '../hocs/with-logout-thunk';
 import LogOutPage from '../pages/logout-page/logout-page';
 
 const createRouter = () => createBrowserRouter([
