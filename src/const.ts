@@ -72,9 +72,9 @@ export const offerTypes: Record<OfferType, string> = {
 
 export const offersSortTypes: Record<OfferSortType, OfferSort> = {
   'none': () => 0,
-  'priceAsc': (offerA, offerB) => +(offerA.price > offerB.price),
-  'priceDesc': (offerA, offerB) => +(offerA.price < offerB.price),
-  'topDesc': (offerA, offerB) => +(offerA.rating < offerB.rating)
+  'priceAsc': (offerA, offerB) => offerA.price - offerB.price,
+  'priceDesc': (offerA, offerB) => offerB.price - offerA.price,
+  'topDesc': (offerA, offerB) => offerB.rating - offerA.rating
 };
 
 export const SORT_TYPES = ['none', 'priceAsc', 'priceDesc', 'topDesc'] as const;
