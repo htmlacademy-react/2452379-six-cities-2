@@ -25,7 +25,7 @@ function LoginPage(): JSX.Element {
 
   return (
     <Layout className="page--gray page--login" disableNav>
-      <main className="page__main page__main--login">
+      <main className="page__main page__main--login" data-testid="LogInPage">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>

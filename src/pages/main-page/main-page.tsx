@@ -21,7 +21,7 @@ export default function MainPage(): JSX.Element {
 
   return (
     <Layout className="page--gray page--main">
-      <main className={clsx('page__main page__main--index', isEmpty && 'page__main--index-empty')}>
+      <main className={clsx('page__main page__main--index', isEmpty && 'page__main--index-empty')} data-testid="MainPage">
         <AvailableLocations />
         {
           isLoading

@@ -11,7 +11,7 @@ export default function Favorites({ offers }: FavoritesProps): JSX.Element {
   const isEmpty = offers.length === 0;
 
   return (
-    <main className={clsx('page__main page__main--favorites', isEmpty && 'page__main--favorites-empty')}>
+    <main className={clsx('page__main page__main--favorites', isEmpty && 'page__main--favorites-empty')} data-testid="Favorites">
       <div className="page__favorites-container container">
         {
           isEmpty
