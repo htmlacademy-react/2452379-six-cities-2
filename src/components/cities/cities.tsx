@@ -16,7 +16,7 @@ export default function Cities(): JSX.Element {
   const handleActivePlaceChange = useCallback((activeOffer: Offer | null) => dispatch(setActiveOffer(activeOffer)), [dispatch]);
 
   return (
-    <div className="cities">
+    <div className="cities" data-testid="Cities">
       {
         isEmpty
           ? <CitiesEmpty />
