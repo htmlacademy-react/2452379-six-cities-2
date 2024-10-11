@@ -3,15 +3,14 @@ import { datatype, commerce, image, address, lorem, internet } from 'faker';
 import { Review } from '../types/review';
 import { User, UserData } from '../types/user';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
-import { State } from '../store/type';
-import { createApi } from '../services/api';
+import { State, ThunksExtraArgument } from '../store/type';
 import { OffersSlice } from '../store/slices/offers/type';
 import { AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT_TYPE, FetchStatus } from '../const';
 import { AppSlice } from '../store/slices/app/type';
 import { UserSlice } from '../store/slices/user/type';
 import { ReviewsSlice } from '../store/slices/reviews/type';
 
-export type AppDispatch = ThunkDispatch<State, ReturnType<typeof createApi>, Action>;
+export type AppDispatch = ThunkDispatch<State, ThunksExtraArgument, Action>;
 
 export const extractActions = (actions: Action<string>[]) => actions.map((a) => a.type);
 

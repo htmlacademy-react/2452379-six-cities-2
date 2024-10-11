@@ -9,6 +9,7 @@ import { ApiRoute, AppRoute } from '../../../const';
 import { getFavoriteOffersThunk, getOffersNearbyThunk, getOffersThunk, getOfferThunk, postFavoriteOfferStatusThunk } from './offers.thunks';
 import { generatePath } from 'react-router-dom';
 import { router } from '../../../services/router';
+import { FavoriteOfferStatus } from '../../../types/offer';
 
 describe('Offers thunks', () => {
   const api = createApi();
@@ -158,7 +159,7 @@ describe('Offers thunks', () => {
   });
 
   describe('postFavoriteOfferStatusThunk', () => {
-    const favOfferStatus = { offerId: '', status: '0' };
+    const favOfferStatus: FavoriteOfferStatus = { offerId: '', status: '0' };
 
     it('should dispatch pending and fullfilled', async () => {
       mockApi.onPost(generatePath(ApiRoute.FavoriteOfferStatus, favOfferStatus)).reply(200);

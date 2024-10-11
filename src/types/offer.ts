@@ -33,7 +33,7 @@ export type OfferDetails = {
 
 export type FavoriteOfferStatus = {
   offerId: OfferId;
-  status: boolean;
+  status: '0' | '1';
 }
 
 export type OfferFull = Omit<Offer, 'previewImage'> & OfferDetails;

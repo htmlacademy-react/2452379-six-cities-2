@@ -29,7 +29,8 @@ export default function Bookmark({ offerId, className }: BookmarkProps): JSX.Ele
   const isBookmarked = isAuthorized && isFavorite;
 
   const handleClick = () => {
-    dispatch(postFavoriteOfferStatusThunk({ offerId, status: !isBookmarked }));
+    const statusPayload = isBookmarked ? '0' : '1';
+    dispatch(postFavoriteOfferStatusThunk({ offerId, status: statusPayload }));
   };
 
   return (

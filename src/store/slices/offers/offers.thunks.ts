@@ -95,7 +95,7 @@ export const postFavoriteOfferStatusThunk =
     ThunksOptions
   >(ApiAction.postFavoriteOfferStatus, async ({ offerId, status }, { extra: { router, api } }) => {
     try {
-      const { data } = await api.post<Offer>(generatePath(ApiRoute.FavoriteOfferStatus, { offerId, status: `${+status}` }));
+      const { data } = await api.post<Offer>(generatePath(ApiRoute.FavoriteOfferStatus, { offerId, status: status }));
       return data;
     } catch (error) {
       if (error instanceof AxiosError) {
