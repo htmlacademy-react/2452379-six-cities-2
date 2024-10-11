@@ -143,7 +143,8 @@ describe('Offers Slice', () => {
   describe('postFavoriteOfferStatusThunk', () => {
     it('should push new favorite offer to "favoriteOffers", set "offersFetchStatus" to "Fullfilled" with fullfilled action', () => {
       const offer: Offer = { ...createFakeOffer(), isFavorite: true };
-      const action = postFavoriteOfferStatusThunk.fulfilled(offer, '', { offerId: offer.id, status: offer.isFavorite });
+      const statusPayload = offer.isFavorite ? '0' : '1';
+      const action = postFavoriteOfferStatusThunk.fulfilled(offer, '', { offerId: offer.id, status: statusPayload });
       const expectedState: OffersSlice = {
         ...initialState,
         favoriteOffers: [offer],
@@ -156,9 +157,10 @@ describe('Offers Slice', () => {
 
     it('should remove favorite offer from "favoriteOffers", set "offersFetchStatus" to "Fullfilled" with fullfilled action', () => {
       const offer: Offer = { ...createFakeOffer(), isFavorite: false };
+      const statusPayload = offer.isFavorite ? '0' : '1';
       const favoriteOffers = createFakeOffers(3);
       const subInitialState = { ...initialState, favoriteOffers: [...favoriteOffers, offer] };
-      const action = postFavoriteOfferStatusThunk.fulfilled(offer, '', { offerId: offer.id, status: offer.isFavorite });
+      const action = postFavoriteOfferStatusThunk.fulfilled(offer, '', { offerId: offer.id, status: statusPayload });
       const expectedState: OffersSlice = {
         ...subInitialState,
         favoriteOffers,

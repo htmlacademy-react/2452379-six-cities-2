@@ -1,8 +1,8 @@
 import { CSSProperties } from 'react';
 
-import './loading.css';
+import './loader.css';
 
-export type LoadingProps = {
+export type LoaderProps = {
   mainColor: string;
   secondaryColor: string;
   speed: number;
@@ -46,13 +46,13 @@ const coords = [
   { x: 93, y: 48 },
 ];
 
-export default function Loading({
+export default function Loader({
   mainColor,
   secondaryColor,
   speed,
   still,
   thickness
-}: LoadingProps): JSX.Element {
+}: LoaderProps): JSX.Element {
   const diamondStyle: CSSProperties = {
     animation: `spinners-react-diamond ${ANIMATION_DURATION / speed}s steps(2, end) infinite`,
   };
