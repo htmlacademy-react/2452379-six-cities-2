@@ -3,10 +3,14 @@ import { datatype, commerce, image, address, lorem, internet } from 'faker';
 import { Review } from '../types/review';
 import { User, UserData } from '../types/user';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
-import { State } from '../store/type';
-import { createApi } from '../services/api';
+import { State, ThunksExtraArgument } from '../store/type';
+import { OffersSlice } from '../store/slices/offers/type';
+import { AuthorizationStatus, DEFAULT_CITY, DEFAULT_SORT_TYPE, FetchStatus } from '../const';
+import { AppSlice } from '../store/slices/app/type';
+import { UserSlice } from '../store/slices/user/type';
+import { ReviewsSlice } from '../store/slices/reviews/type';
 
-export type AppDispatch = ThunkDispatch<State, ReturnType<typeof createApi>, Action>;
+export type AppDispatch = ThunkDispatch<State, ThunksExtraArgument, Action>;
 
 export const extractActions = (actions: Action<string>[]) => actions.map((a) => a.type);
 
@@ -22,12 +26,12 @@ export const createFakeUserData = (): UserData => ({
   token: datatype.string(10)
 });
 
-export const createFakeOffer = (): Offer => ({
+export const createFakeOffer = (data?: Partial<Offer>): Offer => ({
   id: datatype.uuid(),
   title: commerce.productName(),
   type: 'apartment',
   city: {
-    name: 'Amsterdam',
+    name: DEFAULT_CITY,
     location: {
       latitude: +address.latitude(),
       longitude: +address.longitude(),
@@ -43,7 +47,8 @@ export const createFakeOffer = (): Offer => ({
     zoom: 12
   },
   isFavorite: datatype.boolean(),
-  isPremium: datatype.boolean()
+  isPremium: datatype.boolean(),
+  ...data
 });
 
 export const createFakeFullOffer = (): OfferFull => ({
@@ -69,3 +74,33 @@ export const createFakeReview = (): Review => ({
 
 export const createFakeReviews = (length: number): Review[] =>
   Array.from({ length }, createFakeReview);
+
+
+export const createFakeOffersSlice = (data?: Partial<OffersSlice>): OffersSlice => ({
+  offers: createFakeOffers(10),
+  favoriteOffers: createFakeOffers(10),
+  nearbyOffers: createFakeOffers(10),
+  activeOffer: Math.random() ? createFakeFullOffer() : null,
+  offersFetchStatus: FetchStatus.Idle,
+  favoriteOffersFetchStatus: FetchStatus.Idle,
+  ...data
+});
+
+export const createFakeAppSlice = (data?: Partial<AppSlice>): AppSlice => ({
+  sortType: DEFAULT_SORT_TYPE,
+  city: DEFAULT_CITY,
+  ...data
+});
+
+export const createFakeUserSlice = (data?: Partial<UserSlice>): UserSlice => ({
+  userData: createFakeUserData(),
+  authStatus: AuthorizationStatus.Unknown,
+  fetchStatus: FetchStatus.Idle,
+  ...data
+});
+
+export const createFakeReviewsSlice = (data?: Partial<ReviewsSlice>): ReviewsSlice => ({
+  reviews: createFakeReviews(10),
+  postStatus: FetchStatus.Idle,
+  ...data
+});

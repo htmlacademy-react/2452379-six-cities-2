@@ -9,7 +9,7 @@ import { useAppSelector } from '../../hooks';
 import { getActiveOfferLocation } from '../../store/slices/offers/offers.selectors';
 
 type MapProps = {
-  className: string;
+  className?: string;
 
   offers: OfferLocation[];
   anchor: MapData & { isActiveLocation?: boolean };
@@ -67,7 +67,7 @@ export default function Map({ className, offers, anchor, mapOptions }: MapProps)
   }, [mapRef, offers, activeLocation, anchor]);
 
   return (
-    <section className={clsx('map', className)}>
+    <section className={clsx('map', className)} data-testid="Map">
       <div ref={mapElementRef} style={{ 'height': '100%' }} ></div>
     </section>
   );

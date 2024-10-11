@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../../../const';
 import { useAppSelector } from '../../../../hooks';
 import { getIsAuthorized } from '../../../../store/slices/user/user.selectors';
-import User from '../../../user/user';
+import User from './user/user';
 
 
 function HeaderNav(): JSX.Element {
   const isAuthorized = useAppSelector(getIsAuthorized);
 
   return (
-    <nav className="header__nav">
+    <nav className="header__nav" data-testid="HeaderNav">
       <ul className="header__nav-list">
         {
           isAuthorized

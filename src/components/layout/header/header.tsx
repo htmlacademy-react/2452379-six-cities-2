@@ -8,7 +8,7 @@ type HeaderProps = {
 
 function Header({ disableNav = false }: HeaderProps): JSX.Element {
   return (
-    <header className="header">
+    <header className="header" data-testid="Header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
