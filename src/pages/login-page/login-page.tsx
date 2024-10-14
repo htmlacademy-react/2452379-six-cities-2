@@ -4,6 +4,8 @@ import { useAppDispatch } from '../../hooks';
 import { logInThunk } from '../../store/slices/user/user.thunks';
 import { UserLogIn } from '../../types/user';
 import { toast } from 'react-toastify';
+import { AVAILABLE_LOCATIONS } from '../../const';
+import CityLink from '../../components/city-link/city-link';
 
 const isValid = ({ email, password }: UserLogIn) =>
   email.match(/^\S+@\S+\.\S+$/) && password.match(/(?=.*[A-Za-z])(?=.*\d).+/);
@@ -12,6 +14,8 @@ function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const randomCity = AVAILABLE_LOCATIONS[Math.floor(Math.random() * AVAILABLE_LOCATIONS.length)];
 
   const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
@@ -59,9 +63,7 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <CityLink className="locations__item-link" city={randomCity} />
             </div>
           </section>
         </div>
