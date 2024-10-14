@@ -17,7 +17,7 @@ const circleSizeCoefficients = {
   active: 3.5
 };
 
-const coords = [
+const COORDINATES = [
   { x: 3, y: 48 },
   { x: 18, y: 33 },
   { x: 18, y: 48 },
@@ -64,12 +64,12 @@ export default function Loader({
   return (
     <div style={{ width: '30%', margin: 'auto' }} data-testid="Loader">
       <svg fill={mainColor} viewBox="0 0 96 96">
-        {coords.map((c) => (
-          <circle key={`${c.x}-${c.y}`} cx={c.x} cy={c.y} fill={secondaryColor} r={circleSizeCoefficients.default * (thickness / 100)} />
+        {COORDINATES.map((coordinate) => (
+          <circle key={`${coordinate.x}-${coordinate.y}`} cx={coordinate.x} cy={coordinate.y} fill={secondaryColor} r={circleSizeCoefficients.default * (thickness / 100)} />
         ))}
         <g style={diamondStyle}>
-          {coords.slice(0, LOADER_ELEMENT_COORDS_COUNT).map((c) => (
-            <circle key={`h-${c.x}-${c.y}`} cx={c.x} cy={c.y} r={circleSizeCoefficients.active * (thickness / 100)} />
+          {COORDINATES.slice(0, LOADER_ELEMENT_COORDS_COUNT).map((coordinate) => (
+            <circle key={`h-${coordinate.x}-${coordinate.y}`} cx={coordinate.x} cy={coordinate.y} r={circleSizeCoefficients.active * (thickness / 100)} />
           ))}
         </g>
       </svg>
