@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 import Layout from '../../components/layout/layout';
 import { useAppDispatch } from '../../hooks';
 import { logInThunk } from '../../store/slices/user/user.thunks';
@@ -15,7 +15,7 @@ function LoginPage(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const randomCity = AVAILABLE_LOCATIONS[Math.floor(Math.random() * AVAILABLE_LOCATIONS.length)];
+  const randomCity = useRef(AVAILABLE_LOCATIONS[Math.floor(Math.random() * AVAILABLE_LOCATIONS.length)]);
 
   const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
@@ -63,7 +63,7 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <CityLink className="locations__item-link" city={randomCity} />
+              <CityLink className="locations__item-link" city={randomCity.current} />
             </div>
           </section>
         </div>
